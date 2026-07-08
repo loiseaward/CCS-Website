@@ -26,10 +26,25 @@ export const Home = () => {
           laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in 
           reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur 
           sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-        <p className="about-copy">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
+          <br/>
+        <p className="about-copy !text-[#6f412a]">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
           et dolore magna aliqua. Ut enim ad minim veniam,</p>
         </div>
         <img src="../assets/logo.jpeg" alt="CCS ND logo" className="about-image"/>
+      </div>
+    </section>
+
+    <section className="margin-10 p-20 bg-[#ede0c4] h-auto">
+      <hr className="gradient-line" />
+      <h2 className="p-4 text-center headers !text-2xl"> What We Do </h2>
+      <div>
+      </div>
+    </section>
+
+    <section className="margin-10 p-20 bg-[#f2e8d5] h-auto">
+      <hr className="gradient-line" />
+      <h2 className="p-4 text-center headers !text-2xl"> FAQ </h2>
+      <div>
       </div>
     </section>
     </>

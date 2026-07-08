@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom"
 import { Home, Gallery, Calendar, Join, Board, Wecap, Developers, Dashboard } from "../pages/index.js"
 import { AdminProvider } from "../features/auth/AdminContext.jsx"
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx"
+import Footer from "../layouts/Footer.jsx"
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             </Route>
           </Routes>
         </AdminProvider>
+        <Footer/>
     </div>
   )
 }
