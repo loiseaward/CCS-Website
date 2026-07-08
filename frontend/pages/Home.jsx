@@ -1,11 +1,35 @@
 import React from 'react';
 import '../styles/index.css';
+import dragonBg from "../assets/dragon.png";
+import aboutLogo from "../assets/CCSpng.png";
+import { MainCard, FAQAccordian } from "../components/UICards.jsx"
+import galleryImage from "../assets/CCSpng.png"
 
-export const Home = () => {
+
+const HomeCards = [
+    {id:1, imagesrc: galleryImage, title: "Event 1", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"},
+    {id:2, imagesrc: galleryImage, title: "Event 2", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"},
+    {id:3, imagesrc: galleryImage, title: "Event 3", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"}]
+
+const WWDCards = () => {
+  return(
+      <div className="flex justify-center gap-8">
+          { HomeCards.map((card) => (
+          <MainCard key={card.id} imagesrc={card.imagesrc} title={card.title} description={card.description}/>
+          ))}
+      </div>
+  )
+
+}
+
+export function Home () {
   return (
     <>
     <section>
-    <div className="semi-transparent-main relative flex flex-col justify-center items-start gap-5">
+    <div
+      className="semi-transparent-main relative flex flex-col justify-center items-start gap-5"
+      style={{ backgroundImage: `url(${dragonBg})` }}
+    >
       <div className="absolute inset-0 bg-gradient-to-r from-black/100 via-black/60 to-black/20 z-10"></div>
         <div className="relative z-20 flex flex-col justify-center ml-15">
           <h2 className="text-[#bd802b] subtitles"> EST. 2019 -- UNIVERSITY OF NOTRE DAME</h2>
@@ -30,21 +54,25 @@ export const Home = () => {
         <p className="about-copy !text-[#6f412a]">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
           et dolore magna aliqua. Ut enim ad minim veniam,</p>
         </div>
-        <img src="../assets/CCSpng.png" alt="CCS ND logo" className="about-image"/>
+        <div className="fancy-box">
+          <img src={aboutLogo} alt="CCS ND logo" className="about-image"/>
+        </div>
       </div>
     </section>
 
     <section className="margin-10 p-20 bg-[#ede0c4] h-auto">
       <hr className="gradient-line" />
-      <h2 className="p-4 text-center headers !text-2xl"> What We Do </h2>
+      <h2 className="m-5 p-10 text-center headers !text-2xl"> ⎯◆ What We Do ◆⎯ </h2>
       <div>
+        <WWDCards/>
       </div>
     </section>
 
     <section className="margin-10 p-20 bg-[#f2e8d5] h-auto">
       <hr className="gradient-line" />
-      <h2 className="p-4 text-center headers !text-2xl"> FAQ </h2>
+      <h2 className=" mt-5 p-10 text-center headers !text-2xl"> ⎯◇ Frequently Asked Questions ◇⎯</h2>
       <div>
+        <FAQAccordian/>
       </div>
     </section>
     </>

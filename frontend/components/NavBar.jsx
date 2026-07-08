@@ -4,6 +4,7 @@ import { Link, NavLink} from "react-router-dom";
 import "../styles/index.css"
 import "./NavBar.css"
 import { useAdmin } from '../features/auth/AdminContext';
+import logo from "../assets/CCSsvg.svg";
 
 export default function NavBar(){
     const { isAdmin } = useAdmin()
@@ -12,7 +13,7 @@ export default function NavBar(){
     return (
         <nav className="flex justify-between items-center bg-[#96211b]">
             <div className="flex items-center gap-2 font-bold text-md">
-                <img src="../assets/CCSsvg.svg" alt="Logo" className="h-10 aspect-square object-cover rounded-full" />
+                <img src={logo} alt="Logo" className="h-10 aspect-square object-cover rounded-full" />
                 <Link className="text-[#e6982c] title" to="/"> CCS ND</Link>
             </div>
             <button
