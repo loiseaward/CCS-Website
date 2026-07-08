@@ -30,7 +30,7 @@ export const Home = () => {
         <p className="about-copy !text-[#6f412a]">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore 
           et dolore magna aliqua. Ut enim ad minim veniam,</p>
         </div>
-        <img src="../assets/logo.jpeg" alt="CCS ND logo" className="about-image"/>
+        <img src="../assets/CCSpng.png" alt="CCS ND logo" className="about-image"/>
       </div>
     </section>
 
