@@ -1,12 +1,14 @@
 //main backend file
-
-const express = require('express');
+import express from "express";
+import bodyParser from "body-parser";
+import env from "dotenv";
 
 const app = express();
 
-const PORT = process.env.port || 3000; //can change later if needed
+const PORT = process.env.port || 8000; //can change later if needed
 
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
     res.send("Backend server is operational");
