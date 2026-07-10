@@ -5,13 +5,52 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import CardActionArea from '@mui/material/CardActionArea';
 import Accordion from '@mui/material/Accordion';
-import AccordionActions from '@mui/material/AccordionActions';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box'
 import "../styles/index.css"
+
+import { Card as CCard, CardContent as CardStuff } from "./ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel"
+
+export function CarouselSize({ imgArray = [] }) {
+  return (
+    <Carousel
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      className="w-full"
+    >
+      <CarouselContent>
+        {imgArray.map((image, index) => (
+          <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 rounded-none">
+            <div className="p-1">
+              <div className="overflow-hidden border-2 border-[#D4AF37] bg-transparent">
+              <CCard className="overflow-hidden rounded-none border-none shadow-none p-0 ">
+                <CardStuff className="flex h-60 items-center justify-center p-0">
+                  <img src={image} alt={`Gallery image ${index + 1}`} className="h-full w-full object-cover"/>
+                </CardStuff>
+              </CCard>
+            </div>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  )
+}
+
+
 
 export function FAQAccordian() {
   const id = React.useId();

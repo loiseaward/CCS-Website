@@ -22,14 +22,16 @@
   filter: saturate(0.8) contrast(0.95);
 }
 
-.dragon-side--left {
-  left: 0;
-  transform: translateY(-50%) scaleX(-1);
-  transform-origin: center;
-}
-
-.dragon-side--right {
-  right: 0;
+.header-bottom {
+    border-bottom: 1.5px solid transparent;
+    border-image: linear-gradient(
+    90deg, 
+    #BF9b30 0%, 
+    #FFBF00 25%, 
+    #FFFFC2 50%, 
+    #FFBF00 75%, 
+    #a67c00 100%
+  ) 1;
 }
 
 @media (max-width: 1200px) {
@@ -78,6 +80,11 @@
 .fancy-font{
   font-family: "Long Cang", cursive;
   font-weight: 500;
+}
+
+.simple-font{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
 }
 
 hr.gradient-line {
