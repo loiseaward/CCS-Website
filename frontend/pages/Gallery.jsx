@@ -4,7 +4,7 @@ import { Header } from "../components/Header.jsx"
 import { CarouselSize } from "../components/UICards.jsx"
 import galleryImage from "../assets/CCSpng.png"
 
-const placeholder = {title: "CCS EVENT NAME", description: "some description placeholder here", imagesrc:[galleryImage, galleryImage, galleryImage, galleryImage, galleryImage]}
+const placeholder = {id: 1, title: "CCS EVENT NAME", description: "some description placeholder here", imagesrc:[galleryImage, galleryImage, galleryImage, galleryImage, galleryImage]}
 
 const GalleryCarousel = (props) => {
   return(
@@ -27,10 +27,10 @@ export const Gallery = () => {
   return (
     <div>
         <Header title="Picture Gallery" subtitle="Memories from the past"/>
-        <GalleryCarousel eventinfo={placeholder}/>
-        <GalleryCarousel eventinfo={placeholder}/>
-        <GalleryCarousel eventinfo={placeholder}/>
-        <GalleryCarousel eventinfo={placeholder}/>
+        <GalleryCarousel key={1} eventinfo={placeholder}/>
+        <GalleryCarousel key={2} eventinfo={placeholder}/>
+        <GalleryCarousel key={3} eventinfo={placeholder}/>
+        <GalleryCarousel key={4} eventinfo={placeholder}/>
     </div>
   );
 };
