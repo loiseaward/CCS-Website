@@ -1,3 +1,5 @@
+//where you actually talk to Google
+
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
