@@ -4,11 +4,11 @@ Revamped and Redesigned CCS Website
 # Goals:
 ## Front End  
 ### Static Pages 
-- [ ] Home
-- [ ] Gallery
+- [X] Home
+- [X] Gallery
 - [ ] Board
 - [ ] Dev
-- [ ] Header + Footer + NavBar
+- [X] Header + Footer + NavBar
 
 ### Dynamic Pages
 - [ ] Login
