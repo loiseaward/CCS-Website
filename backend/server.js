@@ -7,6 +7,19 @@ const app = express();
 
 const PORT = process.env.port || 8000; //can change later if needed
 
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const pool = require('./db/pool');
+
+const passport = require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
+
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,10 +30,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on https://localhost:${PORT}`);
 });
-
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
-const pool = require('./db/pool');
 
 app.use(
     session({
@@ -34,14 +43,6 @@ app.use(
         }
     })
 );
-
-const passport = require('./config/passport');
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
 
 //for testing:
 app.get('/', (req, res) => {
