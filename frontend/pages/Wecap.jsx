@@ -128,7 +128,7 @@ const WecapViewer = () => {
 
     <hr className="gradient-line" />
 
-    <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '50px' }}>
+    <div style={{ maxWidth: '100%', margin: '0 auto', padding: '50px' }}>
       {olderDocs.length > 0 && (
         <div style={{ padding: '20px', marginBottom:"10px"}}>
           <h3 className="text-3xl nice-font !font-bold mb-10 text-center">Missed a Week? See our Archive Below</h3>
