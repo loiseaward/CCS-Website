@@ -7,3 +7,4 @@ export * from "./Join.jsx";
 export * from "./Wecap.jsx";
 export * from "./Board.jsx";
 export * from "./Dashboard.jsx";
+export * from "./Archive.jsx";

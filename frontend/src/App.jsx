@@ -1,7 +1,7 @@
 import '../styles/App.css'
 import NavBar from "../components/NavBar.jsx"
 import { Route, Routes } from "react-router-dom"
-import { Home, Gallery, Calendar, Join, Board, Wecap, Developers, Dashboard } from "../pages/index.js"
+import { Home, Gallery, Calendar, Join, Board, Wecap, Developers, Dashboard, Archive} from "../pages/index.js"
 import { AdminProvider } from "../features/auth/AdminContext.jsx"
 import ProtectedRoute from "../features/auth/ProtectedRoute.jsx"
 import Footer from "../layouts/Footer.jsx"
@@ -20,6 +20,7 @@ function App() {
             <Route path="/board" element={<Board />}/>
             <Route path="/wecap" element={<Wecap />}/>
             <Route path="/developers" element={<Developers />}/>
+            <Route path="/wecap-archive" element={<Archive />}/>
             <Route element={<ProtectedRoute />}>
               <Route path="/admin" element={<Dashboard />}/>
             </Route>

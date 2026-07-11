@@ -194,6 +194,105 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   text-align:center;
 }
 
+.wecap-archive-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.wecap-archive-card {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  margin:3px 0px;
+  padding: 1.5rem 1.7rem;
+  background: #ede0c4;
+  border: 1px solid #dfc286;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: #331a11;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.wecap-archive-card:hover {
+  transform: translateY(-1px);
+  background: #f1e0ba;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.wecap-archive-accent {
+  width: 4px;
+  align-self: stretch;
+  flex: 0 0 auto;
+  background: #96211b;
+}
+
+.wecap-archive-date {
+  min-width: 4.5rem;
+  text-align: center;
+  color: #c2852e;
+  font-family: "Noto Serif", serif;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.05;
+}
+
+.wecap-archive-date span {
+  display: block;
+}
+
+.wecap-archive-content {
+  flex: 1 1 auto;
+}
+
+.wecap-archive-title {
+  margin: 0;
+  font-size: clamp(1.35rem, 1vw, 1rem);
+  font-weight: 500;
+  color: #231612;
+}
+
+.wecap-archive-tags {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.wecap-archive-tags span {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #d2a15a;
+  background: rgba(255, 255, 255, 0.18);
+  color: #9a2d24;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.wecap-see-all {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1.25rem;
+  border: 1px solid #9a2d24;
+  color: #9a2d24;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(255, 248, 228, 0.85);
+  transition: background-color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.wecap-see-all:hover {
+  transform: translateY(-1px);
+  background: #ce81622d;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
 /*box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);*/
 
 @media (max-width: 1024px) {
@@ -246,4 +345,16 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     max-width: 18rem;
     
   }
+
+  .wecap-archive-card {
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.1rem 1rem;
+  }
+
+  .wecap-archive-date {
+    min-width: 3.75rem;
+    font-size: 0.8rem;
+  }
+
 }

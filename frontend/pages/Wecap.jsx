@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from "react-router-dom";
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
@@ -115,7 +116,7 @@ const WecapViewer = () => {
             href={latestDoc.filePath}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ display: 'inline-block', marginTop: '12px', color: '#331a11', fontWeight: 'bold' }}
+            style={{ display: 'inline-block', marginTop: '12px', color: '#b98d35', fontWeight: 'bold' }}
             className='simple-font'
           >
             Open in a new tab
@@ -128,51 +129,49 @@ const WecapViewer = () => {
     <hr className="gradient-line" />
 
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '50px' }}>
-    {olderDocs.length > 0 && (
+      {olderDocs.length > 0 && (
         <div style={{ padding: '20px', marginBottom:"10px"}}>
           <h3 className="text-3xl nice-font !font-bold mb-10 text-center">Missed a Week? See our Archive Below</h3>
           
-          <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-            {olderDocs.map((doc) => (
-              <a
-                key={doc.id}
-                href={doc.filePath}    /* Points directly to the static PDF file target */
-                target="_blank"        /* Tells the browser to open new tab */
-                rel="noopener noreferrer" /* security shield for blank layouts */
-                style={{
-                  display: 'inline-block',
-                  padding: '12px 24px',
-                  backgroundColor: '#007bff',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                }}
-              >
-                View {doc.file_name} →
-              </a>
-            ))}
+          <div className="wecap-archive-list">
+            {olderDocs.map((doc) => {
+              const issueDate = new Date(doc.uploaded_at);
+
+              return (
+                <a
+                  key={doc.id}
+                  href={doc.filePath}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="wecap-archive-card"
+                >
+                  <span className="wecap-archive-accent" aria-hidden="true" />
+                  <div className="wecap-archive-date">
+                    <span>{issueDate.toLocaleString("en-US", { month: "short" }).toUpperCase()}</span>
+                    <span>{issueDate.getFullYear()}</span>
+                  </div>
+                  <div className="wecap-archive-content">
+                    <h4 className="wecap-archive-title nice-font">
+                      Wecap {issueDate.toLocaleDateString()}
+                    </h4>
+                    <div className="wecap-archive-tags simple-font">
+                      <span>PDF</span>
+                    </div>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       )}
 
-      <a href="/wecap-archive"   /* Points directly to the static PDF file target */
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#007bff',
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  borderRadius: '4px',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-                }}>
-                See all Wecaps
-              </a>
+          <div className='flex flex-row items-center justify-center'>
+              <Link to="/wecap-archive" className="wecap-see-all simple-font">
+                See all Wecaps ⌯⌲
+              </Link>
             </div>
-          </>
+        </div>
+        </>
     
 
   );
