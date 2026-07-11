@@ -3,6 +3,7 @@ import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 import { CarouselSize } from "../components/UICards.jsx"
 import galleryImage from "../assets/CCSpng.png"
+import { imageData } from '../assets';
 
 const placeholder = {id: 1, title: "CCS EVENT NAME", description: "some description placeholder here", imagesrc:[galleryImage, galleryImage, galleryImage, galleryImage, galleryImage]}
 
