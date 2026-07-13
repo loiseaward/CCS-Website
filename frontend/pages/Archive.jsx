@@ -46,7 +46,8 @@ export const Archive = () => {
 
   //useffect to load in all at first
 
-  //fetch from backend here and get new array of objects
+  //function to fetch from backend here and get new array of objects if form submkitted
+  //function handlefilter(){}
 
   return (
     <div>
