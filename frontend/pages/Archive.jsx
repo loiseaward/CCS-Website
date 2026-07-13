@@ -40,13 +40,13 @@ export const Archive = () => {
 
       <div className="wecap-archive-page">
         <div className="mb-8">
-          <h1 className="nice-font text-start text-2xl !font-normal p-4">Wecap Archive</h1>
+          <h1 className="nice-font text-start text-2xl !font-normal p-4"> CCS Archive</h1>
           <hr className="gradient-line"/>
         </div>
 
         <div className="wecap-archive-layout">
           <aside className="wecap-archive-filter-panel">
-            <h2 className="nice-font text-xl !font-normal">Filter Wecaps by Year</h2>
+            <h2 className="nice-font text-xl !font-normal">Filter by Year</h2>
             <p className="simple-font wecap-archive-filter-note">
               Select one or more years
             </p>
