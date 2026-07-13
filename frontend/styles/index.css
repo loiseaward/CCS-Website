@@ -293,6 +293,115 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+.wecap-archive-page {
+  width: min(1280px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.wecap-archive-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.wecap-archive-filter-panel,
+.wecap-archive-results {
+  background: rgba(255, 248, 228, 0.9);
+  border: 1px solid #dfc286;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.wecap-archive-filter-note,
+.wecap-archive-results-note {
+  margin-top: 0.75rem;
+  color: #5c4032;
+  line-height: 1.7;
+}
+
+.wecap-archive-filter-form {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.wecap-archive-filter-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.wecap-archive-filter-fieldset legend {
+  margin-bottom: 0.85rem;
+  padding: 0;
+  font-weight: 600;
+  color: #231612;
+}
+
+.wecap-year-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.wecap-year-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #d9b66f;
+  background: rgba(255, 255, 255, 0.55);
+  color: #331a11;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, border-color 160ms ease;
+}
+
+.wecap-year-option:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.wecap-year-option input {
+  accent-color: #9a2d24;
+}
+
+.wecap-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.wecap-filter-button {
+  appearance: none;
+  border: 1px solid #9a2d24;
+  background: #9a2d24;
+  color: #fff7e8;
+  padding: 0.8rem 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.wecap-filter-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.wecap-filter-button-secondary {
+  background: transparent;
+  color: #9a2d24;
+}
+
+.wecap-archive-results {
+  min-height: 18rem;
+}
+
 /*box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);*/
 
 @media (max-width: 1024px) {
@@ -309,6 +418,10 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   .about-image {
     max-width: 25rem;
     height: 20rem;
+  }
+
+  .wecap-archive-layout {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -327,6 +440,15 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     width: min(100%, 20rem);
     aspect-ratio: 4 / 3;
   }
+
+  .wecap-archive-page {
+    width: min(100%, calc(100% - 1rem));
+    padding: 2rem 0 3rem;
+  }
+
+  .wecap-year-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -344,6 +466,11 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     width: 100%;
     max-width: 18rem;
     
+  }
+
+  .wecap-archive-filter-panel,
+  .wecap-archive-results {
+    padding: 1.1rem;
   }
 
   .wecap-archive-card {
