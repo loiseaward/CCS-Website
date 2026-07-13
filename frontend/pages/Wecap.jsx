@@ -147,12 +147,12 @@ const WecapViewer = () => {
                 >
                   <span className="wecap-archive-accent" aria-hidden="true" />
                   <div className="wecap-archive-date">
-                    <span>{issueDate.toLocaleString("en-US", { month: "short" }).toUpperCase()}</span>
+                    <span>{issueDate.toLocaleString("en-US", { month: "short" }).toUpperCase()} {issueDate.toLocaleString('default', { day: 'numeric' })}</span>
                     <span>{issueDate.getFullYear()}</span>
                   </div>
                   <div className="wecap-archive-content">
                     <h4 className="wecap-archive-title nice-font">
-                      Wecap {issueDate.toLocaleDateString()}
+                      Wecap {doc.file_name}
                     </h4>
                     <div className="wecap-archive-tags simple-font">
                       <span>PDF</span>
