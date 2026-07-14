@@ -65,7 +65,7 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel1-content`}
           id={`${id}-panel1-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif',color: '#7c3225',}} component="span">Accordion 1</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif',fontWeight:'500',color: '#7c3225',}} component="span">Accordion 1</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -79,7 +79,7 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel2-content`}
           id={`${id}-panel2-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif',color: '#7c3225',}} component="span">Accordion 2</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500', color: '#7c3225',}} component="span">Accordion 2</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
@@ -93,7 +93,7 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel2-content`}
           id={`${id}-panel2-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif',color: '#7c3225',}} component="span">Accordion 2</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500',color: '#7c3225',}} component="span">Accordion 2</Typography>
         </AccordionSummary>
           <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse

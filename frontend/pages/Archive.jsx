@@ -42,12 +42,24 @@ export const Archive = () => {
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 4 }, (_, index) => currentYear - index);
 
-  const [wecapsResults, setwecapsResults] = useState(placeholderresults)
+  const [wecapsResults, setWecapsResults] = useState(placeholderresults);
 
   //useffect to load in all at first
 
   //function to fetch from backend here and get new array of objects if form submkitted
-  //function handlefilter(){}
+  function handleFilter(e) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const selectedYears = formData.getAll('years');
+    console.log(selectedYears)
+
+    if (selectedYears.length === 0) {
+      //fetch all from backend
+      return;
+    }
+
+    //select only the selected years from backend
+  }
 
   return (
     <div>
@@ -66,7 +78,7 @@ export const Archive = () => {
               Select one or more years
             </p>
 
-            <form action="/api/wecap/archive" method="get" className="wecap-archive-filter-form">
+            <form onSubmit={handleFilter} className="wecap-archive-filter-form">
               <fieldset className="wecap-archive-filter-fieldset">
                 <legend className="simple-font">Years</legend>
                 <div className="wecap-year-grid">
@@ -97,7 +109,13 @@ export const Archive = () => {
             </p>
             <div className="wecap-archive-list">
               {wecapsResults.map((wecap) => (
-                <WecapCards id={wecap.id} uploaded_at={wecap.uploaded_at} filePath={wecap.filePath} file_name={wecap.file_name}/>
+                <WecapCards
+                  key={wecap.id}
+                  id={wecap.id}
+                  uploaded_at={wecap.uploaded_at}
+                  filePath={wecap.filePath}
+                  file_name={wecap.file_name}
+                />
               ))}
             </div>
           </section>
