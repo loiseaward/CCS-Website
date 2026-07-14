@@ -198,18 +198,18 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 .wecap-archive-card {
   display: flex;
   align-items: center;
   gap: 1.4rem;
-  width: 80%;
-  margin: 3px auto;
+  width: 100%;
+  margin: 3px 0;
   padding: 1.5rem 1.7rem;
-  background: #ede0c4;
-  border: 1px solid #dfc286;
+  background: #f7eedb;
+  border: 1px solid #ead7ab;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   text-decoration: none;
   color: #331a11;
@@ -218,7 +218,7 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
 
 .wecap-archive-card:hover {
   transform: translateY(-1px);
-  background: #f1e0ba;
+  background: #fbf4e6;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
 }
 
@@ -293,6 +293,235 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+.wecap-archive-page {
+  width: min(1280px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+}
+
+.wecap-archive-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.wecap-archive-filter-panel,
+.wecap-archive-results {
+  background: rgba(255, 248, 228, 0.9);
+  border: 1px solid #dfc286;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.wecap-archive-filter-note,
+.wecap-archive-results-note {
+  margin-top: 0.75rem;
+  color: #5c4032;
+  line-height: 1.7;
+}
+
+.wecap-archive-filter-form {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.wecap-archive-filter-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.wecap-archive-filter-fieldset legend {
+  margin-bottom: 0.85rem;
+  padding: 0;
+  font-weight: 600;
+  color: #231612;
+}
+
+.wecap-year-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.wecap-year-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid #d9b66f;
+  background: rgba(255, 255, 255, 0.55);
+  color: #331a11;
+  cursor: pointer;
+  transition: background-color 160ms ease, transform 160ms ease, border-color 160ms ease;
+}
+
+.wecap-year-option:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.wecap-year-option input {
+  accent-color: #9a2d24;
+}
+
+.wecap-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.wecap-filter-button {
+  appearance: none;
+  border: 1px solid #9a2d24;
+  background: #9a2d24;
+  color: #fff7e8;
+  padding: 0.8rem 1rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+
+.wecap-filter-button-secondary {
+  background: transparent;
+  color: #9a2d24;
+}
+
+.wecap-archive-results {
+  min-height: 18rem;
+}
+
+.ccs-merch-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  padding: 1.5rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 244, 0.8), rgba(255, 248, 228, 0.96)),
+    #ede2c9;
+  border: 1px solid #dcb377cf;
+  box-shadow: 0 12px 30px rgba(57, 29, 18, 0.08);
+}
+
+.ccs-merch-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.ccs-merch-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: fit-content;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #d9b66f;
+  background: rgba(255, 255, 255, 0.4);
+  color: #9a2d24;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.ccs-merch-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: #9a2d24;
+  box-shadow: 0 0 0 4px rgba(154, 45, 36, 0.12);
+}
+
+.ccs-merch-title {
+  margin: 0;
+  color: #7d1c1c;
+  font-size: clamp(2rem, 2.3vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.ccs-merch-description {
+  margin: 0;
+  max-width: 42rem;
+  color: #5b4331;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.ccs-merch-list {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #4f3a2a;
+}
+
+.ccs-merch-list li {
+  position: relative;
+  padding-left: 1rem;
+  line-height: 1.6;
+}
+
+.ccs-merch-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: 0.5rem;
+  padding: 0.9rem 1.3rem;
+  background: linear-gradient(135deg, #9a2d24, #7d1c1c);
+  color: #fff7e8;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 247, 232, 0.12);
+  box-shadow: 0 10px 20px rgba(111, 111, 111, 0.2);
+  transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+}
+
+.ccs-merch-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 24px rgba(91, 91, 91, 0.24);
+}
+
+.ccs-merch-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  align-self: center;
+}
+
+.ccs-merch-image-wrap {
+  overflow: hidden;
+  border: 1px solid #d9b66f;
+  background: #f7eedb;
+  box-shadow: 0 10px 24px rgba(57, 29, 18, 0.12);
+}
+
+.ccs-merch-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 4.5;
+  object-fit: cover;
+}
+
+.ccs-merch-note {
+  padding: 0.8rem 0.95rem;
+  background: rgba(255, 255, 255, 0.45);
+  border-left: 3px solid #9a2d24;
+  color: #5b4331;
+  line-height: 1.6;
+}
+
 /*box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);*/
 
 @media (max-width: 1024px) {
@@ -310,6 +539,14 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     max-width: 25rem;
     height: 20rem;
   }
+
+  .wecap-archive-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .ccs-merch-card {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {
@@ -326,6 +563,23 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   .about-image {
     width: min(100%, 20rem);
     aspect-ratio: 4 / 3;
+  }
+
+  .wecap-archive-page {
+    width: min(100%, calc(100% - 1rem));
+    padding: 2rem 0 3rem;
+  }
+
+  .wecap-year-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ccs-merch-card {
+    padding: 1.1rem;
+  }
+
+  .ccs-merch-title {
+    font-size: 1.8rem;
   }
 }
 
@@ -346,6 +600,11 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     
   }
 
+  .wecap-archive-filter-panel,
+  .wecap-archive-results {
+    padding: 1.1rem;
+  }
+
   .wecap-archive-card {
     align-items: flex-start;
     gap: 1rem;
@@ -355,6 +614,10 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   .wecap-archive-date {
     min-width: 3.75rem;
     font-size: 0.8rem;
+  }
+
+  .ccs-merch-button {
+    width: 100%;
   }
 
 }
