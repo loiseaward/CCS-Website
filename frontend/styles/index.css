@@ -522,6 +522,153 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   line-height: 1.6;
 }
 
+.event-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.36fr) 1fr;
+  align-items: stretch;
+  gap: 1.35rem;
+  width: min(100%, 68rem);
+  margin: 1.25rem auto 0;
+  padding: 0.85rem;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(151, 34, 27, 0.08), transparent 38%),
+    #f8edd6;
+  border: 1px solid #d6a84e;
+  border-left: 7px solid #96211b;
+  border-radius: 0.5rem;
+  box-shadow: 0 14px 30px rgba(68, 35, 22, 0.13);
+  text-decoration: none;
+  color: #331a11;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.event-card:hover {
+  box-shadow: 0 18px 38px rgba(68, 35, 22, 0.18);
+}
+
+.event-card-image-wrap {
+  position: relative;
+  min-height: 13.5rem;
+  overflow: hidden;
+  border: 1px solid rgba(214, 168, 78, 0.85);
+  border-radius: 0.35rem;
+  background: #ead7ab;
+}
+
+.event-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 13.5rem;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.03);
+  transition: transform 220ms ease;
+}
+
+.event-card:hover .event-card-image {
+  transform: scale(1.035);
+}
+
+.event-card-date-badge {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  min-width: 4.2rem;
+  padding: 0.45rem 0.65rem 0.55rem;
+  text-align: center;
+  background: rgba(247, 238, 219, 0.94);
+  border: 1px solid #d6a84e;
+  border-top: 4px solid #96211b;
+  color: #96211b;
+  box-shadow: 0 8px 18px rgba(51, 26, 17, 0.18);
+}
+
+.event-card-date-badge span,
+.event-card-date-badge strong {
+  display: block;
+}
+
+.event-card-date-badge span {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.event-card-date-badge strong {
+  margin-top: 0.18rem;
+  font-family: "Noto Serif", serif;
+  font-size: 1.85rem;
+  line-height: 0.95;
+}
+
+.event-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: 1.1rem 1rem 1.1rem 0.2rem;
+}
+
+.event-card-kicker {
+  width: fit-content;
+  margin: 0 0 0.55rem;
+  padding: 0.28rem 0.7rem;
+  background: #96211b;
+  border: 1px solid #bf9b30;
+  color: #fff3cf;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.event-card h2 {
+  margin: 0;
+  color: #3c201b;
+  font-family: "Noto Serif", serif;
+  font-size: clamp(1.55rem, 2.1vw, 2.3rem);
+  line-height: 1.12;
+}
+
+.event-card-description {
+  margin: 0.65rem 0 1rem;
+  max-width: 44rem;
+  color: #5b4331;
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.event-card-details {
+  display: grid;
+  gap: 0.55rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(191, 155, 48, 0.45);
+}
+
+.event-card-details p {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin: 0;
+  color: #4c2c21;
+  font-family: "Roboto", sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+.event-card-details svg {
+  flex: 0 0 auto;
+  color: #a02c24;
+}
+
 /*box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14);*/
 
 @media (max-width: 1024px) {
@@ -546,6 +693,10 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
 
   .ccs-merch-card {
     grid-template-columns: 1fr;
+  }
+
+  .event-card {
+    grid-template-columns: minmax(11rem, 0.42fr) 1fr;
   }
 }
 
@@ -580,6 +731,21 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
 
   .ccs-merch-title {
     font-size: 1.8rem;
+  }
+
+  .event-card {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0.75rem;
+  }
+
+  .event-card-image-wrap,
+  .event-card-image {
+    min-height: 14rem;
+  }
+
+  .event-card-content {
+    padding: 1.1rem 0.35rem 0.4rem;
   }
 }
 
@@ -618,6 +784,25 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
 
   .ccs-merch-button {
     width: 100%;
+  }
+
+  .event-card {
+    width: 100%;
+    border-left-width: 5px;
+  }
+
+  .event-card-image-wrap,
+  .event-card-image {
+    min-height: 11.5rem;
+  }
+
+  .event-card h2 {
+    font-size: 1.45rem;
+  }
+
+  .event-card-description,
+  .event-card-details p {
+    font-size: 0.92rem;
   }
 
 }
