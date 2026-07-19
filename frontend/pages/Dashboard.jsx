@@ -5,6 +5,25 @@ import '../styles/index.css';
 import welcome from "../assets/welcome.jpg";
 import FormPopup from "../components/Popups.jsx"
 
+const resourceLinks = [{
+url: "https://drive.google.com/drive/folders/1i11i0VbLt-IsDIPkJOPmoAvhtBF9tcWt",
+title: "CCS GDRIVE", 
+}, {
+  url: "https://youtu.be/-sFije0-16Q?si=8hYol2Xkb6lN6JmX",
+  title: "Showcase Performances",
+}, {
+  url: "https://youtu.be/3RGEo2Kohb8?si=Qeo0G_5kzpo6q57g",
+  title:"Other Resources"
+}, {
+  url:"https://youtu.be/1_G60OdEzXs?si=QOpRrynXs1eYImFZ",
+  title: "Work Stuff",
+}, 
+{
+  url:"https://youtu.be/JwB-iVAfnMo?si=HnDCuv8PTjWWo7rM",
+  title: "Another Resource",
+}]
+
+
 function uploadWecap(){
   console.log("Uploaded")
 }
@@ -27,24 +46,6 @@ const ResourceCards = (props) => {
     </a>
   )
 }
-
-const resourceLinks = [{
-url: "https://drive.google.com/drive/folders/1i11i0VbLt-IsDIPkJOPmoAvhtBF9tcWt",
-title: "CCS GDRIVE", 
-}, {
-  url: "https://youtu.be/-sFije0-16Q?si=8hYol2Xkb6lN6JmX",
-  title: "Showcase Performances",
-}, {
-  url: "https://youtu.be/3RGEo2Kohb8?si=Qeo0G_5kzpo6q57g",
-  title:"Other Resources"
-}, {
-  url:"https://youtu.be/1_G60OdEzXs?si=QOpRrynXs1eYImFZ",
-  title: "Work Stuff",
-}, 
-{
-  url:"https://youtu.be/JwB-iVAfnMo?si=HnDCuv8PTjWWo7rM",
-  title: "Another Resource",
-}]
 
 export const Dashboard = () => {
   const { adminEmail, adminName, logoutAdmin } = useAdmin();
