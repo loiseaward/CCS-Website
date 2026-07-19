@@ -60,7 +60,7 @@ export default function FormPopup(props) {
         open={open}
         onClose={handleClose}
         fullWidth
-        maxWidth="xs"
+        maxWidth="md"
         slotProps={{
           paper: {
             sx: {

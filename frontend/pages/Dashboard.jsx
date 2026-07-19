@@ -1,9 +1,15 @@
-import React from 'react';
 import { Header } from "../components/Header.jsx";
 import { useAdmin } from "../features/auth/AdminContext.jsx";
 import '../styles/index.css';
 import welcome from "../assets/welcome.jpg";
 import FormPopup from "../components/Popups.jsx"
+import React, { useState } from 'react';
+import { Button, Dialog, DialogContent, DialogTitle, TextField, Stack, Typography } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 
 const resourceLinks = [{
 url: "https://drive.google.com/drive/folders/1i11i0VbLt-IsDIPkJOPmoAvhtBF9tcWt",
@@ -23,9 +29,112 @@ title: "CCS GDRIVE",
   title: "Another Resource",
 }]
 
+function PdfUploader({ onUploaded }) {
+  const [formData, setFormData] = useState({
+    file_name: '',
+    uploaded_at: dayjs(),
+    pdfFile: null,
+  });
 
-function uploadWecap(){
-  console.log("Uploaded")
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      setFormData((prev) => ({ ...prev, pdfFile: file }));
+    } else {
+      alert('Please upload a PDF file');
+    }
+  };
+
+  const handleSubmit = () => {
+    // apppend to formData and send formData to a backend here
+    const dataForm = new FormData();
+    dataForm.append('name', formData.file_name);
+    dataForm.append('pdf', formData.pdfFile);
+
+    // Convert back into date string format "YYYY-MM-DD"
+    if (formData.uploaded_at && formData.uploaded_at.isValid()) {
+      dataForm.append('date', formData.uploaded_at.format('YYYY-MM-DD'));
+    }
+
+    console.log('Submitting obj FormData:', formData);
+    console.log(Object.fromEntries(dataForm.entries()));
+    onUploaded?.();
+  };
+
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Stack spacing={3} sx={{ width: '100%',
+        maxWidth: 400,
+        mx: 'auto',
+        my: 0,
+        p: 3,
+        boxShadow: 3,
+        borderRadius: 2,
+        backgroundColor: '#fff8ea', }}>
+        <Typography variant="h5" component="h1" gutterBottom>
+          Upload Wecap Details
+        </Typography>
+
+        {/* File Name Input */}
+        <TextField
+          label="Wecap Title Name"
+          variant="outlined"
+          value={formData.file_name}
+          onChange={(e) => setFormData({ ...formData, file_name: e.target.value })}
+        />
+
+        {/* Date Picker */}
+        <DatePicker
+          label="Select Date"
+          value={formData.uploaded_at}
+          onChange={(newDate) => setFormData({ ...formData, uploaded_at: newDate })}
+          slotProps={{ textField: { fullWidth: true, variant: 'outlined' } }}
+        />
+
+        {/* PDF File Uploader */}
+        <Button
+          component="label"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+          sx={{ 
+          backgroundColor: '#84211b', // Your custom hex color
+          '&:hover': {
+            backgroundColor: '#722622', // Darker shade for the hover effect
+          },
+        }}
+        >
+          Upload Wecap PDF
+          <input
+            type="file"
+            accept=".pdf"
+            hidden
+            onChange={handleFileChange}
+          />
+        </Button>
+
+        {/* Display selected file name */}
+        {formData.pdfFile && (
+          <Typography variant="body2" color="text.secondary">
+            Selected File: {formData.pdfFile.name}
+          </Typography>
+        )}
+
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          disabled={!formData.pdfFile || !formData.file_name || !formData.uploaded_at}
+          sx={{ 
+          backgroundColor: '#9f1d16', // Your custom hex color
+          '&:hover': {
+            backgroundColor: '#9f1d16', // Darker shade for the hover effect
+          },
+        }}
+        >
+          Upload
+        </Button>
+      </Stack>
+    </LocalizationProvider>
+  );
 }
 
 function addAdmin (email){
@@ -49,6 +158,7 @@ const ResourceCards = (props) => {
 
 export const Dashboard = () => {
   const { adminEmail, adminName, logoutAdmin } = useAdmin();
+  const [uploadOpen, setUploadOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#f2e8d5]">
@@ -90,9 +200,13 @@ export const Dashboard = () => {
               </div>
               <div className="group border border-[#dfc286] bg-[#fff8ea] p-6">
                 <h2 className="nice-font text-xl !font-semibold text-[#84211b]">Upload Wecaps</h2>
-                <button type="button"
-                onClick={uploadWecap}
-                className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16]"> Upload </button>
+                <button
+                  type="button"
+                  onClick={() => setUploadOpen(true)}
+                  className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16]"
+                >
+                  Upload
+                </button>
               </div>
               <div className="group border border-[#dfc286] bg-[#fff8ea] p-6">
                 <h2 className="nice-font text-xl !font-semibold text-[#84211b]">Manage CCS Admin</h2>
@@ -104,6 +218,43 @@ export const Dashboard = () => {
             </section>
           </div>
         </main>
+        <Dialog
+          open={uploadOpen}
+          onClose={() => setUploadOpen(false)}
+          fullWidth
+          maxWidth="md"
+          slotProps={{
+            paper: {
+              sx: {
+                backgroundColor: '#fff8ea',
+                border: '1px solid #dfc286',
+                borderRadius: 0,
+                boxShadow: '0 18px 45px rgba(63,30,20,0.22)',
+              },
+            },
+            backdrop: {
+              sx: {
+                backgroundColor: 'rgba(32, 12, 11, 0.45)',
+              },
+            },
+          }}
+        >
+          <DialogTitle
+            className="nice-font"
+            sx={{
+              borderBottom: '1px solid #dfc286',
+              color: '#84211b',
+              fontSize: '1.75rem',
+              fontWeight: 700,
+              padding: '22px 24px 16px',
+            }}
+          >
+            Upload Wecap
+          </DialogTitle>
+          <DialogContent sx={{ padding: 0 }}>
+            <PdfUploader onUploaded={() => setUploadOpen(false)} />
+          </DialogContent>
+        </Dialog>
     </div>
   );
 };
