@@ -12,11 +12,11 @@ const currEvents = [{
     description: "Weekly alignment meeting to review ongoing development sprints.",
     location: "Conference Room B / Zoom",
     start: {
-      dateTime: "2026-07-16T10:00:00-05:00",
+      dateTime: "2026-07-20T10:00:00-05:00",
       timeZone: "America/Indiana/Indianapolis"
     },
     end: {
-      dateTime: "2026-07-16T11:00:00-05:00",
+      dateTime: "2026-07-20T11:00:00-05:00",
       timeZone: "America/Indiana/Indianapolis"
     }
   },
