@@ -11,14 +11,14 @@ Revamped and Redesigned CCS Website
 - [X] Header + Footer + NavBar
 
 ### Dynamic Pages
-- [ ] Login
-- [ ] Wecap
-- [ ] Events
-- [ ] Dashboard
+- [X] Wecap
+- [X] Wecap Archive
+- [X] Events
+- [X] Dashboard
 
 ## Backend
+- [ ] Login and Authentication
 - [ ] Routes
 - [ ] Databases
 - [ ] Wecap Archive
 - [ ] Calendar & Event System
-- [ ] Authentication
