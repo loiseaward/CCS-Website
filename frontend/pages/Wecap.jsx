@@ -94,7 +94,6 @@ const WecapViewer = () => {
     { id: 3, file_name: "Week 1 Newsletter.pdf", uploaded_at: "2026-06-26", filePath: suppPdf }
   ]; //array of info for the pdfs
 
-  const [pdfUrl, setPdfUrl] = useState(null)
   //backend fetch to get the actual most recent 3 here
 
   const latestDoc = documents[0];

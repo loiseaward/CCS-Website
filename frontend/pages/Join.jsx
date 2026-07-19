@@ -114,7 +114,7 @@ export const Join = () => {
                 </p>
                 <ul className="ccs-merch-list !list-none simple-font">
                   <li><span className="text-[#9a2d24] select-none">♦</span> Elegant embroidery and design</li>
-                  <li><span className="text-[#9a2d24] select-none">♦</span> Show your supportfor CCS! </li>
+                  <li><span className="text-[#9a2d24] select-none">♦</span> Show your support for CCS! </li>
                 </ul>
                 <a
                   href="https://shop.nd.edu/C21688_ustores/web/store_cat.jsp?STOREID=8&SINGLESTORE=true&CATID=988&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZXh0bgNhZW0CMTEAc3J0YwZhcHBfaWQPOTM2NjE5NzQzMzkyNDU5AAGnV4kTh8n1-q39zV7Elf6--7PMk0FEzsO4SvpKpM_g4wdLbDUtviHDWMoj-wM_aem_Wx9tG1N4mNfCTqcJMqjTQw"
