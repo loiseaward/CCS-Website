@@ -55,22 +55,7 @@ function SectionHeading({children}) {
 export const Developers = () => {
   return (
     <div>
-        <header className="bg-[#7a1f1f] text-center py-16 px-6">
-          <p className="tracking-[0.3em] text-[#e7c98f] text-xs mb-3">
-            CHINESE CULTURE CLUB
-          </p>
-          <h1
-            className="text-[#f7ecd0] text-6xl mb-4"
-            style={{fontFamily: "'Yesteryear', cursive"}}
-          >
-            Developers
-          </h1>
-          <div className="flex items-center justify-center gap-3 text-[#e7c98f] text-sm">
-            <span className="w-8 h-px bg-[#e7c98f/60"/>
-            Meet the team that built this website
-            <span className="w-8 h-px bg-[#e7c98f/60"/>
-          </div>
-        </header>
+        <Header title="Developers" subtitle="Meet the team that built this website"/>
 
         <main className="max-w-4xl mx-auto px-6 py-16">
           {/*The Team*/}
