@@ -23,17 +23,12 @@ const DEVS = [
 
 const BUILT_WITH = [
   {name: "React", note: "UI Framework"},
-  {name: "TypeScript", note: "Type Safety"},
+  {name: "PostgresSQL", note: "Database"},
   {name: "Tailwind CSS", note: "Styling"},
-  {name: "Motion", note: "Animations"},
   {name: "React Router", note: "Navigation"},
+  {name:"Express", note: "Backend Framework"}
 ];
 
-const STATS = [
-  {value: "6", label: "Pages"},
-  {value: "100%", label: "Responsive"},
-  {value: "\u26A1", label: "Lightning Fast", isIcon: true},
-];
 
 function Diamond() {
   return (
@@ -115,16 +110,7 @@ export const Developers = () => {
                   <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4">
                     {member.bio}
                   </p>
-                  <p className="text-[10px] tracking-[0.2em] text-[#8a7856] mb-2">
-                    SKILLS
-                  </p>
-                  <div className="flex flex-wrap justify-center gap-2 mb-4">
-                    {member.skills.map((skill) => (
-                      <span key={skill} className="text-xs px-2.5 py-1 rounded bg-[#f2e8ce] text-[#5b4a2f] border border-[#e0cf9d]">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
+                  
                 </div>
             ))}
           </div>
@@ -143,50 +129,16 @@ export const Developers = () => {
           {/*About*/}
           <SectionHeading>About This Project</SectionHeading>
           <div className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-8">
-            <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4">
-              This website was built with modern web technologies to provide a beautiful, 
-              fast, and accessible experience for all users. Our goal was to blend traditional 
-              Chinese aesthetics with contemporary web design.
+            <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4 text-center">
+              This website was built to redesign the old CCS website, including a more unique design and 
+              more interative features. Please contact the developers or CCS board if you have any questions, notice bugs or 
+              would like to contribute suggestions to the project. 
             </p>
-            <p className="text-[#6b5a3d text-sm leading-relaxed mb-8">
-              The site features smooth animations, responsive design that works on all devices, 
-              and an intuitive navigation structure that makes it easy to find information about 
-              the club's events and activities.
+            <p className="text-[#6b5a3d] text-sm !font-bold eading-relaxed mb-4 text-center">
+              ccs@nd.edu lwardhan@nd.edu msalvad2@nd.edu
             </p>
-            <div className="grid grid-cols-3 gap-4">
-              {STATS.map((stat) => (
-                <div key={stat.label} className="bg-[#f2e8ce] border border-[#e0cf9d] rounded-lg py-5 text-center">
-                <p className="text-[#7a1f1f] text-2xl font-semibold mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-[#8a7856] text-xs tracking-wide uppercase">
-                  {stat.label}
-                </p>
-              </div>
-              ))}
-            </div>
           </div>
         </main>
-
-        {/*Github*/}
-        <section className="bg-[#7a1f1f] text-center py-16 px-6">
-          <IconCode className="w-6 h-6 text-[#e7c98f] mx-auto mb-4"/>
-          <h2 className="text-[#f7ecd0] text-lg mb-3" style={{fontFamily: "'Playfair Display', serif"}}>
-            Want to Contribute?
-          </h2>
-          <p className="text-[#e7c98f]/90 text-sm max-w-md mx-auto mb-7">
-            This is an open-source project. If you'd like to contribute to the
-            development of our website, we'd love to hear from you!
-          </p>
-          <a
-            href="https://github.com/loiseaward/CCS-Website.git"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 bg-[#c9a227] hover:bg-[#b8931f] transition-colors text-[#3a2a10] text-sm font-medium px-5 py-2.5 rounded-md">
-            <IconGithub className="w-4 h-4"/>
-            View on Github
-          </a> 
-        </section>
     </div>
   );
 };
