@@ -4,54 +4,6 @@ import { Header } from "../components/Header.jsx"
 import { eventImages } from '../assets/event_card_pics';
 import { CalendarDays, Clock, MapPin } from 'lucide-react';
 
-//this is the kind of thing the gcal api will send 
-const currEvents = [{
-    kind: "calendar#event",
-    id: "e1thisweek2026",
-    summary: "Project Status Sync",
-    description: "Weekly alignment meeting to review ongoing development sprints.",
-    location: "Conference Room B / Zoom",
-    start: {
-      dateTime: "2026-07-20T10:00:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    },
-    end: {
-      dateTime: "2026-07-20T11:00:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    }
-  },
-  {
-    kind: "calendar#event",
-    id: "e2futureweek3a",
-    summary: "Quarterly Business Review",
-    description: "Executive presentation on performance metrics and upcoming goals.",
-    location: "Main HQ Ballroom",
-    start: {
-      dateTime: "2026-08-04T13:00:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    },
-    end: {
-      dateTime: "2026-08-04T15:30:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    }
-  },
-  {
-    kind: "calendar#event",
-    id: "e3futureweek3b",
-    summary: "Product Launch Strategy",
-    description: "Brainstorming session for marketing assets and rollout schedule.",
-    location: "Design Studio / Google Meet",
-    start: {
-      dateTime: "2026-08-06T09:30:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    },
-    end: {
-      dateTime: "2026-08-06T11:00:00-05:00",
-      timeZone: "America/Indiana/Indianapolis"
-    }
-  }
-];
-
 //one prop will just be the whole object from above so props.event.summary <EventCard event={}>
 const EventCard = (props) => {
   const formatTime = (startObj) => {
@@ -135,35 +87,48 @@ const EventCard = (props) => {
 export const Calendar = () => {
   const [thisWeek, setThisWeek ] = useState([])
   const [nextWeek, setNextWeek ] = useState([])
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    //fetch from API from today to futre 
-    //const events = ____
-    //set currEvents(events)
+    fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/calendar-events`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then((data) => {
+        const events = data.slice(0, 6); //only next 6 for readbility
+        console.log(events);
 
-      const now = new Date();
+        const now = new Date();
+        const sevenDaysFromNow = new Date(now);
+        sevenDaysFromNow.setDate(now.getDate() + 7);
 
-      const sevenDaysFromNow = new Date(now);
-      sevenDaysFromNow.setDate(now.getDate() + 7);
+        const getEventStartDate = (event) => {
+          const startValue = event.start.dateTime || event.start.date;
+          return new Date(startValue);
+        };
 
-      const getEventStartDate = (event) => {
-        const startValue = event.start.dateTime || event.start.date;
-        return new Date(startValue);
-      };
+        //filtering & sorting
+        const eventsThisWeek = events.filter((event) => {
+          const eventDate = getEventStartDate(event);
+          return eventDate >= now && eventDate <= sevenDaysFromNow;
+        });
 
-      const eventsThisWeek = currEvents.filter((event) => {
-        const eventDate = getEventStartDate(event);
-        return eventDate >= now && eventDate <= sevenDaysFromNow;
+        const futureEvents = events.filter((event) => {
+          const eventDate = getEventStartDate(event);
+          return eventDate > sevenDaysFromNow;
+        });
+
+        setThisWeek(eventsThisWeek);
+        setNextWeek(futureEvents);
+      })
+      .catch((err) => {
+        setError(err.message);
       });
 
-      const futureEvents = currEvents.filter((event) => {
-        const eventDate = getEventStartDate(event);
-        return eventDate > sevenDaysFromNow;
-      });
-
-      setThisWeek(eventsThisWeek);
-      setNextWeek(futureEvents);
   }, []);
+
+  if (error) {return <p>Error: {error}; Under construction RN!!</p>;}
 
   return (
     <div>
