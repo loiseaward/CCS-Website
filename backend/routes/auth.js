@@ -1,7 +1,8 @@
 //where you actually talk to Google
 
-const express = require('express');
-const passport = require('passport');
+import express from 'express';
+import passport from 'passport';
+
 const router = express.Router();
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
@@ -11,10 +12,8 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/login-failed' }),
   (req, res) => {
 
-    res.send(`Logged in as ${req.user.display_name} (${req.user.email})`); //this is just for testing
-
-    //res.redirect('/'); //need to change this to homepage in frontend
-    //add this line back once homepage is constructed
+    console.log(`Logged in as ${req.user.display_name} (${req.user.email})`); //this is just for testing
+    res.redirect(process.env.FRONTEND_URL || 'http://localhost:5173/'); //go to homepage deployed or local
   }
 );
 
@@ -32,4 +31,4 @@ router.post('/logout', (req, res, next) => {
   });
 });
 
-module.exports = router;
+export default router;

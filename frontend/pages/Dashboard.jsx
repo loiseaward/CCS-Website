@@ -27,6 +27,10 @@ title: "CCS GDRIVE",
 {
   url:"https://youtu.be/JwB-iVAfnMo?si=HnDCuv8PTjWWo7rM",
   title: "Another Resource",
+}, 
+{
+  url:"https://sao.nd.edu/resources/group-management/forms/",
+  title: "SAO Reimbursment Form (Treasurers)",
 }]
 
 function PdfUploader({ onUploaded }) {
@@ -166,10 +170,10 @@ export const Dashboard = () => {
         <main className="mx-auto grid max-w-8xl gap-4 px-6 py-12 lg:grid-cols-[0.85fr_1.15fr]">
           <section className="flex flex-col justify-between border border-[#dfc286] bg-[#fff8ea] p-8 shadow-[0_14px_35px_rgba(63,30,20,0.10)]">
             <div>
-              <h1 className="nice-font text-center text-4xl !font-bold leading-tight text-[#84211b] md:text-5xl">
+              <h1 className="nice-font text-center text-4xl !font-bold leading-tight text-[#84211b] md:text-5xl mt-5">
                 Welcome <br/> to the CCS Dashboard!
               </h1>
-              <img src={welcome} className='h-50 md:h-70 lg:80 mx-auto object-cover mt-5 mb-5'/>
+              <img src={welcome} className='h-50 md:h-70 lg:80 mx-auto object-cover mt-10 mb-10'/>
               <div className="mt-8 border-l-4 border-[#cd9b55] pl-5">
                 <p className="simple-font text-3xl !font-semibold text-[#331a11]">
                   {adminName || "CCS Board Member"}

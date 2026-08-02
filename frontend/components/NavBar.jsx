@@ -9,6 +9,7 @@ import logo from "../assets/CCSsvg.svg";
 export default function NavBar(){
     const { isAdmin } = useAdmin()
     const [menuOpen, setMenuOpen] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
     return (
         <nav className="flex justify-between items-center bg-[#96211b]">
@@ -49,7 +50,7 @@ export default function NavBar(){
                 <li>
                     <NavLink to="/developers">Devs</NavLink>
                 </li>
-                {isAdmin ? <li><NavLink to="/admin">Admin</NavLink></li> : <li><Link to="/auth/google">Login</Link></li> }
+                {isAdmin ? <li><NavLink to="/admin">Admin</NavLink></li> : <li><a href={`${apiUrl}/auth/google`}>Login</a></li> }
             </ul>
         </nav>  
     )
