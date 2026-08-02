@@ -66,7 +66,7 @@ const BOARD = [
   {
     name: "Loise Wardhana",
     role: "Co-treasurer",
-    bio: "Sophomore majoring in Computer Sciecne and Mathematics",
+    bio: "Sophomore majoring in Computer Science and Mathematics",
     contact: "lwardhan@nd.edu",
   },
   {

@@ -8,7 +8,6 @@ const DEVS = [
     name: "Loise Wardhana",
     role: "Lead Developer",
     class: "2029",
-    bio: "Likes anything cherry flavored",
     linkedin: "https://www.linkedin.com/in/loise-wardhana/"
   },
   {
@@ -16,7 +15,6 @@ const DEVS = [
     name: "Michael Salvador",
     role: "Co-Developer",
     class: "2029",
-    bio: "Can move his eyes independently",
     linkedin: "https://www.linkedin.com/in/michael-salvador-0b1427291/"
   }
 ];
@@ -85,9 +83,6 @@ export const Developers = () => {
                   </p>
                    <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
                     {member.class}
-                  </p>
-                  <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4">
-                    {member.bio}
                   </p>
                  {member.linkedin && (
                     <a
