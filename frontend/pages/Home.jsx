@@ -37,10 +37,10 @@ export function Home () {
           <h2 className="text-[#bd802b] subtitles"> Celebrating heritage, culture, and community</h2>
       </div>
     </div>
-    <div className="relative bg-[#96211b] h-6 overflow-hidden w-full wavy"></div>
+    <div className="relative bg-[#96211b] h-6 overflow-hidden w-full"></div>
     </section>
 
-    <section className="margin-10 p-20 bg-[#f2e8d5] h-auto">
+    <section className="m-10 p-20 bg-[#f2e8d5] h-auto">
       <hr className="gradient-line" />
       <h2 className="p-4 text-center headers">🏮 About CCS ND 🏮</h2>
       <div className="about-section">
