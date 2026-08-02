@@ -2,79 +2,80 @@ import React from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 
+const headshotPics = import.meta.glob("../assets/headshots/*.{jpg,jpeg,png}", {
+  eager: true,
+  import: "default"
+});
+
+const headshotsByName ={};
+for (const path in headshotPics) {
+  const match = path.match(/headshots\/([^/]+)\.[^.]+$/);
+  const name = match[1];
+  headshotsByName[name] = headshotPics[path];
+}
+
 const BOARD = [
   {
-    photo: "",
     name: "Stephen Wu",
     role: "Co-president (Spring)",
     bio: "Junior majoring in Finance and Global Affairs",
     contact: "cwu25@nd.edu",
   },
   {
-    photo: "",
     name: "Maeve Maginn",
     role: "Co-president",
     bio: "Junior majoring in Psychology and Pre-Health",
     contact: "mmaginn@nd.edu",
   },
   {
-    photo: "",
     name: "Kalena Yee",
     role: "Co-president (Fall)",
     bio: "Junior majoring in Business Analytics and Marketing",
     contact: "kyee3@nd.edu",
   },
   {
-    photo: "",
     name: "Olivia Wang",
     role: "Co-vice president",
     bio: "Junior majoring in Finance",
     contact: "owang3@nd.edu",
   },
   {
-    photo: "",
     name: "Niki Lee",
     role: "Co-vice president",
     bio: "Sophomore majoring in Mechanical Engineering",
     contact: "nlee26@nd.edu",
   },
   {
-    photo: "",
     name: "Canon Chiu",
     role: "Co-secretary",
     bio: "Sophomore majoring in Finance and Political Science",
     contact: "cchiu4@nd.edu",
   },
   {
-    photo: "",
     name: "Jodie Lam",
     role: "Co-secretary",
     bio: "Sophomore majoring in Architecture",
     contact: "jlam6@nd.edu",
   },
   {
-    photo: "",
     name: "Michael Salvador",
     role: "Co-treasurer",
     bio: "Sophomore majoring in Physics and Mathematics",
     contact: "msalvad2@nd.edu",
   },
   {
-    photo: "",
     name: "Loise Wardhana",
     role: "Co-treasurer",
     bio: "Sophomore majoring in Computer Sciecne and Mathematics",
     contact: "lwardhan@nd.edu",
   },
   {
-    photo: "",
     name: "Maddie Xu",
     role: "Co-event Coordinator",
     bio: "idk",
     contact: "mxu7@nd.edu",
   },
   {
-    photo: "",
     name: "Judie Yuan",
     role: "Co-event Coordinator",
     bio: "idk",
@@ -106,11 +107,20 @@ function SectionHeading({ children }) {
 }
 
 function BoardCards({member}) {
+  const headshot = headshotsByName[member.name];
   return (
     <div className="w-64 bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-6 text-center">
+      {headshot ? (
+        <img
+          src={headshot}
+          alt={member.name}
+          className="w-14 h-14 mx-auto mb-4 rounded-md object-cover"
+        />
+      ) : (
       <div className="w-14 h-14 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold nice-font">
         {member.photo || member.name.charAt(0)}
       </div>
+      )}
       <h3 className="text-[#4a3418] font-semibold nice-font">
         {member.name}
       </h3>
