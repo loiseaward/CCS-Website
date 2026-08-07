@@ -71,14 +71,14 @@ const BOARD = [
   },
   {
     name: "Maddie Xu",
-    role: "Co-event Coordinator",
-    bio: "idk",
+    role: "Event Co-Coordinator",
+    bio: "Sophomore majoring in Neuroscience",
     contact: "mxu7@nd.edu",
   },
   {
     name: "Judie Yuan",
-    role: "Co-event Coordinator",
-    bio: "idk",
+    role: "Event Co-Coordinator",
+    bio: "Sophomore majoring in Neuroscience",
     contact: "zyuan3@nd.edu",
   }
 ];
@@ -98,6 +98,7 @@ function SectionHeading({ children }) {
       <Diamond />
       <h2
         className="text-[#7a1f1f] text-xl tracking-wide"
+        style={{ fontFamily: "'Playfair Display', serif" }}
       >
         {children}
       </h2>

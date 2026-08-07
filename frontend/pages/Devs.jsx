@@ -13,7 +13,7 @@ const DEVS = [
   {
     photo: "",
     name: "Michael Salvador",
-    role: "Co-Developer",
+    role: "Developer",
     class: "2029",
     linkedin: "https://www.linkedin.com/in/michael-salvador-0b1427291/"
   }
@@ -66,7 +66,7 @@ export const Developers = () => {
 
         <main className="max-w-4xl mx-auto px-6 py-16">
           {/*The Team*/}
-          <SectionHeading>◇ The Team ◇</SectionHeading>
+          <SectionHeading>◇ Developers ◇</SectionHeading>
           <div className="grid sm:grid-cols-2 gap-6 mb-20">
             {DEVS.map((member) => (
               <div
@@ -97,17 +97,6 @@ export const Developers = () => {
                  )}
                   
                 </div>
-            ))}
-          </div>
-
-          {/*Built With*/}
-          <SectionHeading>Built With</SectionHeading>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-20">
-            {BUILT_WITH.map((item) => (
-              <div key={item.name} className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg py-5 text-center">
-                <p className="text-[#7a1f1f] font-medium text-sm">{item.name}</p>
-                <p className="text-[#8a7856] text-xs mt-1">{item.note}</p>
-              </div>
             ))}
           </div>
 
