@@ -19,14 +19,12 @@ const DEVS = [
     name: "Loise Wardhana",
     role: "Lead Developer",
     class: "2029",
-    bio: "Likes anything cherry flavored",
     linkedin: "https://www.linkedin.com/in/loise-wardhana/"
   },
   {
     name: "Michael Salvador",
-    role: "Co-Developer",
+    role: "Developer",
     class: "2029",
-    bio: "Can move his eyes independently",
     linkedin: "https://www.linkedin.com/in/michael-salvador-0b1427291/"
   }
 ];
@@ -135,6 +133,40 @@ export const Developers = () => {
                 <p className="text-[#7a1f1f] font-medium text-sm">{item.name}</p>
                 <p className="text-[#8a7856] text-xs mt-1">{item.note}</p>
               </div>
+            ))}
+          </div>
+
+          <SectionHeading>◇ Developers ◇</SectionHeading>
+          <div className="grid sm:grid-cols-2 gap-6 mb-20">
+            {DEVS.map((member) => (
+              <div
+                key={member.name}
+                className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-6 text-center">
+                  <div className="w-14 h-14 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold">
+                    {member.photo}
+                  </div>
+                  <h3 className="text-[#4a3418] font-semibold">
+                    {member.name}
+                  </h3>
+                  <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
+                    {member.role}
+                  </p>
+                   <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
+                    {member.class}
+                  </p>
+                 {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${member.name} on LinkedIn`}
+                      className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7a1f1f] text-[#f7ecd0] hover:bg-[#8a2b2b] transition-colors"
+                    >
+                      <IconLinkedin className="w-4 h-4" />
+                    </a>
+                 )}
+                  
+                </div>
             ))}
           </div>
 

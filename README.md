@@ -7,7 +7,7 @@ Revamped and Redesigned CCS Website
 - [X] Home
 - [X] Gallery
 - [ ] Board
-- [ ] Dev
+- [X] Dev
 - [X] Header + Footer + NavBar
 
 ### Dynamic Pages
@@ -20,4 +20,4 @@ Revamped and Redesigned CCS Website
 - [ ] Login and Authentication
 - [ ] Routes
 - [ ] Wecap Archive
-- [ ] Calendar & Event System
+- [X] Calendar & Event System
