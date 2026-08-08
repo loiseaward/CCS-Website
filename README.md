@@ -6,8 +6,8 @@ Revamped and Redesigned CCS Website
 ### Static Pages 
 - [X] Home
 - [X] Gallery
-- [ ] Board
-- [ ] Dev
+- [X] Board
+- [X] Dev
 - [X] Header + Footer + NavBar
 
 ### Dynamic Pages
