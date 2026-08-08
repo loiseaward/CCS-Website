@@ -41,7 +41,6 @@ passport.serializeUser((user, done) => { //only store id to save memory
 
 passport.deserializeUser(async (id, done) => { //find people when logging back in
   try {
-      if (destroyErr) return next(destroyErr);
     const result = await sql`
       SELECT *
       FROM board_members

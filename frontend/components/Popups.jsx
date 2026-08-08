@@ -141,7 +141,7 @@ export default function FormPopup(props) {
               fullWidth
               variant="outlined"
               value={name}
-              onChange={(e) => setname(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               sx={{
                 '& .MuiInputLabel-root': {
                   color: '#6b4a35',
