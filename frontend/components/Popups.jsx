@@ -13,20 +13,23 @@ export default function FormPopup(props) {
   //pop-up visibility
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
 
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
     setOpen(false);
     setEmail('');
+    setName('');
   };
 
   const handleSubmit = (event) => {
     event.preventDefault(); // Prevents page reload
     console.log("Submitted email:", email);
-    
+    console.log("Submitted name:", name);
+
     // data sent to backend here either to add or delete
-    props.function(email);
+    props.function(email, name);
 
     handleClose();
   };
@@ -104,6 +107,41 @@ export default function FormPopup(props) {
               variant="outlined"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              sx={{
+                '& .MuiInputLabel-root': {
+                  color: '#6b4a35',
+                  fontFamily: 'Roboto, sans-serif',
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#84211b',
+                },
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: '#f2e8d5',
+                  borderRadius: 0,
+                  color: '#331a11',
+                  fontFamily: 'Roboto, sans-serif',
+                  '& fieldset': {
+                    borderColor: '#dfc286',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: '#cd9b55',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#84211b',
+                  },
+                },
+              }}
+            />
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              label="First Last"
+              type="text"
+              fullWidth
+              variant="outlined"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
               sx={{
                 '& .MuiInputLabel-root': {
                   color: '#6b4a35',

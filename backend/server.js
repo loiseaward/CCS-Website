@@ -4,7 +4,6 @@ import express from "express";
 import bodyParser from "body-parser";
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
-import pool from './db/pool.js';
 import passport from './config/passport.js';
 import authRoutes from './routes/auth.js';
 import cors from 'cors';
@@ -12,8 +11,8 @@ import cors from 'cors';
 const app = express();
 const allowedOrigins = [
   'http://localhost:5173', 
-  'https://pages.dev' //production url after hosting on cloudflare
-];
+  process.env.FRONTEND_URL,
+].filter(Boolean);
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -22,7 +21,8 @@ app.use(cors({
     } else {
       callback(new Error('Blocked by CORS'));
     }
-  }
+  },
+  credentials: true,
 }));
 const pgSession = connectPgSimple(session);
 
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
     session({
-        store: new pgSession({pool, tableName: 'session'}), //connects to sql data table
+        store: new pgSession({ conString: process.env.DATABASE_URL, tableName: 'session', pruneSessionInterval: 60 * 60 * 24}), //connects to sql data table
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false, //save memory from inactive sessions
@@ -53,9 +53,13 @@ app.use('/auth', authRoutes);
 
 //routes here
 
-app.get('/api/me', (req, res) => { // for testing
+app.get('/api/me', (req, res) => {
   if (req.isAuthenticated()) {
-    res.json({ isAdmin: true, adminName: req.user.name, adminEmail: req.user.email });
+    res.json({ //send information to frontend saved in session
+      isAdmin: true,
+      adminName: req.user.name,
+      adminEmail: req.user.email,
+    });
   } else {
     res.json({ isAdmin: false });
   }

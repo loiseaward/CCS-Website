@@ -18,6 +18,5 @@ Revamped and Redesigned CCS Website
 
 ## Backend
 - [ ] Login and Authentication
-- [ ] Routes
 - [ ] Wecap Archive
 - [X] Calendar & Event System

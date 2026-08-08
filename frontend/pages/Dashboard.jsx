@@ -72,7 +72,7 @@ function PdfUploader({ onUploaded }) {
       <Stack spacing={3} sx={{ width: '100%',
         maxWidth: 400,
         mx: 'auto',
-        my: 0,
+        my: 3,
         p: 3,
         boxShadow: 3,
         borderRadius: 2,
@@ -143,12 +143,12 @@ function PdfUploader({ onUploaded }) {
   );
 }
 
-function addAdmin (email){
-  console.log("Admin added", email)
+function addAdmin (email, name){
+  console.log("Admin added", email, name)
 }
 
-function deleteAdmin (email) {
-  console.log("Admin Deleted:", email)
+function deleteAdmin (email, name) {
+  console.log("Admin Deleted:", email, name)
 }
 
 const ResourceCards = (props) => {

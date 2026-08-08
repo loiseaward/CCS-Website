@@ -5,28 +5,33 @@ import passport from 'passport';
 
 const router = express.Router();
 
+//Directs the user to Google
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
+//callback from Google
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login-failed' }),
+  passport.authenticate('google', { failureRedirect: '/auth/login-failed' }),
   (req, res) => {
 
-    console.log(`Logged in as ${req.user.display_name} (${req.user.email})`); //this is just for testing
+    console.log(`Logged in as ${req.user.name} ${req.user.email}`); //this is just for testing
     res.redirect(process.env.FRONTEND_URL || 'http://localhost:5173/'); //go to homepage deployed or local
   }
 );
 
 router.get('/login-failed', (req, res) => {
-  res.status(401).send('Google login failed. <a href="/">Try again</a>');
+  res.status(401).send(`<a href="/auth/google">Try again</a>`);
 });
 
 router.post('/logout', (req, res, next) => {
-  req.logout((err) => {
+  req.logout((err) => { //clears session
     if (err) return next(err);
-    req.session.destroy(() => {
-      res.clearCookie('connect.sid');
-      res.redirect('/');
+
+    req.session.destroy((destroyErr) => {
+      if (destroyErr) return next(destroyErr);
+
+      res.clearCookie('connect.sid'); //destroys cookies on client side
+      res.json({ loggedOut: true });
     });
   });
 });

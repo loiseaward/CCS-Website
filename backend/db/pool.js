@@ -1,15 +1,7 @@
 import 'dotenv/config';
-import pg from 'pg';
+import postgres from 'postgres'
 
-const { Pool } = pg;
+const connectionString = process.env.DATABASE_URL
+const sql = postgres(connectionString)
 
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL
-});
-
-pool.on('error', (err) => {
-    console.error('Error on PostgreSQL client', err);
-    process.exit();
-});
-
-export default pool;
+export default sql

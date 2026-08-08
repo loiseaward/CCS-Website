@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import passport from 'passport';
 import GoogleOAuth20 from 'passport-google-oauth20';
-import pool from '../db/pool.js';
+import sql from '../db/pool.js';
 
 const { Strategy: GoogleStrategy } = GoogleOAuth20;
 
@@ -14,23 +14,22 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try { //Google profile objects
-        const googleId = profile.id;
         const email = profile.emails[0].value;
-        const displayName = profile.displayName;
 
-        const existing = await pool.query(
-          'SELECT * FROM users WHERE email = $1',
-          [email]
-        );
+        const existing = await sql`
+          SELECT *
+          FROM board_members
+          WHERE email = ${email}
+        `;
 
         
-        if (existing.rows.length === 1) {
-          return done(null, existing.rows[0]);
-        } else{
-          return done(err, null);
+        if (existing.length === 1) {
+          return done(null, existing[0]);
         }
+        console.warn(`Google login rejected: ${email} is not in board_members`);
+        return done(null, false);
       } catch (err) {
-        cb(err);
+        return done(err, null);
       }
     }
   )
@@ -42,8 +41,13 @@ passport.serializeUser((user, done) => { //only store id to save memory
 
 passport.deserializeUser(async (id, done) => { //find people when logging back in
   try {
-    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-    done(null, result.rows[0] || null);
+      if (destroyErr) return next(destroyErr);
+    const result = await sql`
+      SELECT *
+      FROM board_members
+      WHERE id = ${id}
+    `;
+    done(null, result[0] || null);
   } catch (err) {
     done(err, null);
   }

@@ -4,34 +4,41 @@ const AdminContext = createContext(null);
 
 export function AdminProvider({ children }) {
   const [isAdmin, setIsAdmin] = useState(false);
-  const [adminEmail, setAdminEmail] = useState('name@nd.edu');
-  const [adminName, setAdminName] = useState('First Last_Name');
+  const [adminEmail, setAdminEmail] = useState(null);
+  const [adminName, setAdminName] = useState(null);
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
-  //have to come up with a way to handle logins from google and maintain sessions
-  // Maintain session on page refresh
 
-  useEffect(() => {
-    //update from the backend after making a post request from login
-    //fetch from an authentication checkpoint on backend and update on remount?
-    const savedAdmin = localStorage.getItem('isAdmin');
-    const savedEmail = localStorage.getItem('adminEmail');
-    const savedName = localStorage.getItem('adminName');
-
-    if (savedAdmin === 'true') {
-      setIsAdmin(true);
-      setAdminEmail(savedEmail);
-      setAdminName(savedName);
-    }
-  }, []);
+  useEffect(() => { //runs due to remounting after google redirects back
+    fetch(`${apiUrl}/api/me`, { credentials: 'include' })
+      .then((res) => res.json())
+      .then((data) => {
+        setIsAdmin(data.isAdmin);
+        setAdminEmail(data.adminEmail || null);
+        setAdminName(data.adminName || null);
+      })
+      .catch(() => {
+        setIsAdmin(false);
+        setAdminEmail(null);
+        setAdminName(null);
+      });
+  }, [apiUrl]);
 
   const logoutAdmin = () => {
     //send a post request to /logout which will logout using passport
-    setIsAdmin(false);
-    setAdminEmail(null);
-    setAdminName(null);
-    localStorage.removeItem('isAdmin');
-    localStorage.removeItem('adminEmail');
-    localStorage.removeItem('adminName');
+    fetch(`${apiUrl}/auth/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    })
+      .catch((err) => {
+        console.error('Logout failed:', err);
+      })
+      .finally(() => {
+        setIsAdmin(false);
+        setAdminEmail(null);
+        setAdminName(null);
+        window.location.assign('/');
+      });
   };
 
   return (
