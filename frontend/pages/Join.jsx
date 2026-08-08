@@ -2,6 +2,7 @@ import React from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 import placeholderimg from "../assets/CCSpng.png"
+import merchPic from "../assets/merchModels.jpg"
 
 function handleSubscribe (e){
   e.preventDefault();
@@ -97,9 +98,9 @@ export const Join = () => {
               <div className="ccs-merch-visual">
                 <div className="ccs-merch-image-wrap">
                   <img
-                    src={placeholderimg}
+                    src={merchPic}
                     alt="CCS sweatshirt merchandise preview"
-                    className="ccs-merch-image w-full h-60 sm:h-85 md:h-100 object-cover"
+                    className="ccs-merch-image w-full h-60 sm:h-85 md:h-100 object-cover -mt-5"
                   />
                 </div>
               </div>

@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 const AdminContext = createContext(null);
 
 export function AdminProvider({ children }) {
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [adminEmail, setAdminEmail] = useState('name@nd.edu');
   const [adminName, setAdminName] = useState('First Last_Name');
 

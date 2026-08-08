@@ -120,6 +120,17 @@ hr.gradient-gold {
   color: #3c201b;
 }
 
+.about-quote {
+  flex: 1 1 0;
+  max-width: 42rem;
+  text-align: left;
+  font-family: "Long Cang", cursive;
+  font-weight: 500;
+  font-size: 2.1rem;
+  line-height: 1.8;
+  color: #3c201b;
+}
+
 .about-image {
   flex: 0 0 auto;
   width: min(100%, 30rem);
@@ -128,8 +139,9 @@ hr.gradient-gold {
   object-fit: cover;
   border-color:#dfc286;
   border-width:4px;
-  border-style:solid;
+  border-style: solid;
   border-radius: 0.5rem;
+  transition: transform 300ms ease-out;
 }
 
 /*
@@ -805,4 +817,17 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
     font-size: 0.92rem;
   }
 
+}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(1.15);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.animate-zoom-in {
+  animation: zoom-in 5s ease-out forwards;
 }

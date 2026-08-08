@@ -20,4 +20,4 @@ Revamped and Redesigned CCS Website
 - [ ] Login and Authentication
 - [ ] Routes
 - [ ] Wecap Archive
-- [ ] Calendar & Event System
+- [X] Calendar & Event System

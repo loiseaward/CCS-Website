@@ -33,10 +33,10 @@ export function CarouselSize({ imgArray = [] }) {
         {imgArray.map((image, index) => (
           <CarouselItem key={index} className="basis-full md:basis-1/2 lg:basis-1/3 rounded-none">
             <div className="p-1">
-              <div className="overflow-hidden border-2 border-[#D4AF37] bg-transparent">
+              <div className="group overflow-hidden border-2 border-[#D4AF37] bg-transparent transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl">
               <CCard className="overflow-hidden rounded-none border-none shadow-none p-0 ">
-                <CardStuff className="flex h-60 items-center justify-center p-0">
-                  <img src={image} alt={`Gallery image ${index + 1}`} className="h-full w-full object-cover"/>
+                <CardStuff className="flex h-60 items-center justify-center p-0 overflow-hidden">
+                  <img src={image} alt={`Gallery image ${index + 1}`} className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"/>
                 </CardStuff>
               </CCard>
             </div>
@@ -65,11 +65,10 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel1-content`}
           id={`${id}-panel1-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif',fontWeight:'500',color: '#7c3225',}} component="span">Accordion 1</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif',fontWeight:'500',color: '#7c3225',}} component="span">Do I have to be Chinese to join CCS?</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          Of course not!
         </AccordionDetails>
       </Accordion>
 
@@ -79,11 +78,10 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel2-content`}
           id={`${id}-panel2-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500', color: '#7c3225',}} component="span">Accordion 2</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500', color: '#7c3225',}} component="span">How can I learn more about CCS?</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          Keep exploring this website!
         </AccordionDetails>
       </Accordion>
 
@@ -93,11 +91,10 @@ export function FAQAccordian() {
           aria-controls={`${id}-panel2-content`}
           id={`${id}-panel2-header`}
         >
-          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500',color: '#7c3225',}} component="span">Accordion 2</Typography>
+          <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500',color: '#7c3225',}} component="span">What's the best club in Notre Dame?</Typography>
         </AccordionSummary>
           <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-          malesuada lacus ex, sit amet blandit leo lobortis eget.
+          I know it, you know it, everybody knows it.
         </AccordionDetails>
       </Accordion>
     </Box>

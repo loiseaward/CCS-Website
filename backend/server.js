@@ -1,35 +1,38 @@
 //main backend file
+import 'dotenv/config';
 import express from "express";
 import bodyParser from "body-parser";
-import env from "dotenv";
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
+import pool from './db/pool.js';
+import passport from './config/passport.js';
+import authRoutes from './routes/auth.js';
+import cors from 'cors';
 
 const app = express();
+const allowedOrigins = [
+  'http://localhost:5173', 
+  'https://pages.dev' //production url after hosting on cloudflare
+];
 
-const PORT = process.env.port || 8000; //can change later if needed
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Blocked by CORS'));
+    }
+  }
+}));
+const pgSession = connectPgSimple(session);
 
-const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
-const pool = require('./db/pool');
+const PORT = process.env.SERVER_PORT || 8000; //can change later if needed
+const GCAL_API_KEY = process.env.GCAL_API_KEY;
+const GCAL_ID = process.env.GCAL_ID;
 
-const passport = require('./config/passport');
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const authRoutes = require('./routes/auth');
-app.use('/auth', authRoutes);
-
-
+//middleware here
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (req, res) => {
-    res.send("Backend server is operational");
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on https://localhost:${PORT}`);
-});
 
 app.use(
     session({
@@ -38,25 +41,58 @@ app.use(
         resave: false,
         saveUninitialized: false, //save memory from inactive sessions
         cookie: {
-            maxAge: 7 * 24 * 60 * 60 * 1000, //1 week in ms
+            maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
             httpOnly: true, //i dont rlly understand it but its for security reasons??
         }
     })
 );
 
-//for testing:
-app.get('/', (req, res) => {
-  res.send('Backend server is operational');
-});
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/auth', authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+//routes here
 
 app.get('/api/me', (req, res) => { // for testing
   if (req.isAuthenticated()) {
-    res.json({ loggedIn: true, user: req.user });
+    res.json({ isAdmin: true, adminName: req.user.name, adminEmail: req.user.email });
   } else {
-    res.json({ loggedIn: false });
+    res.json({ isAdmin: false });
   }
+});
+
+app.get('/api/calendar-events', async (req, res) => {
+  try {
+    if (!GCAL_API_KEY || !GCAL_ID) {
+      return res.status(500).json({ error: 'Google Calendar API is not configured' });
+    }
+
+    const googleUrl = new URL(
+      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(GCAL_ID)}/events`
+    );
+    googleUrl.search = new URLSearchParams({
+      key: GCAL_API_KEY, //authorization
+      orderBy: 'startTime',
+      singleEvents: 'true',
+      timeMin: new Date().toISOString(), // Only get events from now on
+    });
+    
+    const response = await fetch(googleUrl);
+    const data = await response.json();
+    
+    if (!response.ok) {
+      return res.status(response.status).json({
+        error: data.error?.message || 'Failed to fetch from Google Calendar',
+      });
+    }
+
+    res.json(data.items || []); // Send only the events array to frontend
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//listening
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
