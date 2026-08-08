@@ -23,7 +23,7 @@ const DEVS = [
   },
   {
     name: "Michael Salvador",
-    role: "Developer",
+    role: "Co-Developer",
     class: "2029",
     linkedin: "https://www.linkedin.com/in/michael-salvador-0b1427291/"
   }
@@ -75,7 +75,7 @@ export const Developers = () => {
         <Header title="Developers" subtitle="Meet the team that built this website"/>
         <main className="max-w-6xl mx-auto px-6 py-16">
           {/*The Team*/}
-          <SectionHeading>◇ The Team ◇</SectionHeading>
+          <SectionHeading>◇ Developers ◇</SectionHeading>
           <div className="grid sm:grid-cols-2 gap-8 mb-20">
             {DEVS.map((member) => {
               const photo = devPicsByName[member.name];
@@ -133,40 +133,6 @@ export const Developers = () => {
                 <p className="text-[#7a1f1f] font-medium text-sm">{item.name}</p>
                 <p className="text-[#8a7856] text-xs mt-1">{item.note}</p>
               </div>
-            ))}
-          </div>
-
-          <SectionHeading>◇ Developers ◇</SectionHeading>
-          <div className="grid sm:grid-cols-2 gap-6 mb-20">
-            {DEVS.map((member) => (
-              <div
-                key={member.name}
-                className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-6 text-center">
-                  <div className="w-14 h-14 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold">
-                    {member.photo}
-                  </div>
-                  <h3 className="text-[#4a3418] font-semibold">
-                    {member.name}
-                  </h3>
-                  <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
-                    {member.role}
-                  </p>
-                   <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
-                    {member.class}
-                  </p>
-                 {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${member.name} on LinkedIn`}
-                      className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7a1f1f] text-[#f7ecd0] hover:bg-[#8a2b2b] transition-colors"
-                    >
-                      <IconLinkedin className="w-4 h-4" />
-                    </a>
-                 )}
-                  
-                </div>
             ))}
           </div>
 

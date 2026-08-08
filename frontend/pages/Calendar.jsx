@@ -90,42 +90,24 @@ export const Calendar = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    //fetch from API from today to future 
-    //const events = ____
-    //set currEvents(events)
+    const now = new Date();
 
-      const now = new Date();
+    const sevenDaysFromNow = new Date(now);
+    sevenDaysFromNow.setDate(now.getDate() + 7);
 
-      const sevenDaysFromNow = new Date(now);
-      sevenDaysFromNow.setDate(now.getDate() + 7);
+    const getEventStartDate = (event) => {
+      const startValue = event.start.dateTime || event.start.date;
+      return new Date(startValue);
+    };
 
-      const getEventStartDate = (event) => {
-        const startValue = event.start.dateTime || event.start.date;
-        return new Date(startValue);
-      };
-
-      const eventsThisWeek = currEvents.filter((event) => {
-        const eventDate = getEventStartDate(event);
-        return eventDate >= now && eventDate <= sevenDaysFromNow;
     fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/calendar-events`)
       .then((res) => {
         if (!res.ok) throw new Error('Network response was not ok');
         return res.json();
       })
       .then((data) => {
-        const events = data.slice(0, 6); //only next 6 for readbility
-        console.log(events);
+        const events = data.slice(0, 6); // only next 6 for readability
 
-        const now = new Date();
-        const sevenDaysFromNow = new Date(now);
-        sevenDaysFromNow.setDate(now.getDate() + 7);
-
-        const getEventStartDate = (event) => {
-          const startValue = event.start.dateTime || event.start.date;
-          return new Date(startValue);
-        };
-
-        //filtering & sorting
         const eventsThisWeek = events.filter((event) => {
           const eventDate = getEventStartDate(event);
           return eventDate >= now && eventDate <= sevenDaysFromNow;
@@ -142,7 +124,6 @@ export const Calendar = () => {
       .catch((err) => {
         setError(err.message);
       });
-
   }, []);
 
   if (error) {return <p>Error: {error}; Under construction RN!!</p>;}

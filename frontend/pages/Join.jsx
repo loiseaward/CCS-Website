@@ -99,7 +99,7 @@ export const Join = () => {
                 <div className="ccs-merch-image-wrap">
                   <img
                     src={merchPic}
-                    alt="CCS sweatshirt merchandise preview"
+                    alt="cutie patooties wearing our merch"
                     className="ccs-merch-image w-full h-60 sm:h-85 md:h-100 object-cover -mt-5"
                   />
                 </div>
