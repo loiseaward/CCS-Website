@@ -100,7 +100,7 @@ nav .menu.open .bar:nth-child(3){
     transform: translateY(-0.46rem) rotate(-45deg);
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1100px) {
     nav .menu{
         display:flex;
         position: static;

@@ -68,7 +68,7 @@ export function FAQAccordian() {
           <Typography sx={{fontFamily: 'Noto Serif, serif',fontWeight:'500',color: '#7c3225',}} component="span">Do I have to be Chinese to join CCS?</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
-          Of course not!
+          Of course not! Everyone is welcome to join CCS, regardless of their background. We are a community that celebrates Chinese culture and heritage, and we encourage anyone interested in learning more about it to participate in our events and activities.
         </AccordionDetails>
       </Accordion>
 
@@ -81,7 +81,7 @@ export function FAQAccordian() {
           <Typography sx={{fontFamily: 'Noto Serif, serif', fontWeight:'500', color: '#7c3225',}} component="span">How can I learn more about CCS?</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{fontFamily: 'Noto Serif, serif', color: '#64291f',}}>
-          Keep exploring this website!
+          Keep exploring this website! If you have any questions or suggestions, you can email our board members (contacts given on the Board page)
         </AccordionDetails>
       </Accordion>
 

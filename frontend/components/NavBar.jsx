@@ -15,7 +15,7 @@ export default function NavBar(){
         <nav className="flex justify-between items-center bg-[#96211b]">
             <div className="flex items-center gap-2 font-bold text-md">
                 <img src={logo} alt="Logo" className="h-10 aspect-square object-cover rounded-full" />
-                <Link className="text-[#e6982c] title" to="/"> 中华文化社</Link>
+                <Link className="text-[#e6982c] title" to="/"> CCS ND (中华文化社)</Link>
             </div>
             <button
                 type="button"
