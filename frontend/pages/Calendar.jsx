@@ -137,7 +137,7 @@ export const Calendar = () => {
   const [nextWeek, setNextWeek ] = useState([])
 
   useEffect(() => {
-    //fetch from API from today to futre 
+    //fetch from API from today to future 
     //const events = ____
     //set currEvents(events)
 

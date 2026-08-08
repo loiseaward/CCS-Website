@@ -12,21 +12,21 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 
 const resourceLinks = [{
-url: "https://drive.google.com/drive/folders/1i11i0VbLt-IsDIPkJOPmoAvhtBF9tcWt",
-title: "CCS GDRIVE", 
+url: "https://drive.google.com/drive/u/0/folders/0ACCvP0Atflf9Uk9PVA",
+title: "Master Google Drive", 
 }, {
-  url: "https://youtu.be/-sFije0-16Q?si=8hYol2Xkb6lN6JmX",
-  title: "Showcase Performances",
+  url: "https://nd.qualtrics.com/jfe/form/SV_9SRtKEKlqbzrInc",
+  title: "Reimbursement Form",
 }, {
-  url: "https://youtu.be/3RGEo2Kohb8?si=Qeo0G_5kzpo6q57g",
-  title:"Other Resources"
+  url: "https://docs.google.com/document/d/1uOkWtD1QrgiDtePB19_VN8n_IqbxvwzHfJJS6caoGa0/edit?tab=t.0",
+  title:"Meeting Notes"
 }, {
-  url:"https://youtu.be/1_G60OdEzXs?si=QOpRrynXs1eYImFZ",
-  title: "Work Stuff",
+  url: "https://docs.google.com/spreadsheets/d/1Oo7HXJWD9Ff-21-zKh2rI4k-K3JcWbBBLzvB9MhtKA4/edit",
+  title: "Storage Inventory",
 }, 
 {
-  url:"https://youtu.be/JwB-iVAfnMo?si=HnDCuv8PTjWWo7rM",
-  title: "Another Resource",
+  url: "https://drive.google.com/drive/u/0/folders/1XyJRhgIEkzqmX7jiHvbf7aBQB0z50gpb",
+  title: "Media",
 }]
 
 function PdfUploader({ onUploaded }) {
@@ -162,7 +162,7 @@ export const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-[#f2e8d5]">
-        <Header title="CCS Dashboard" subtitle="CCS Resources" />
+        <Header title="CCS Dashboard" subtitle="CCS Admin Resources" />
         <main className="mx-auto grid max-w-8xl gap-4 px-6 py-12 lg:grid-cols-[0.85fr_1.15fr]">
           <section className="flex flex-col justify-between border border-[#dfc286] bg-[#fff8ea] p-8 shadow-[0_14px_35px_rgba(63,30,20,0.10)]">
             <div>

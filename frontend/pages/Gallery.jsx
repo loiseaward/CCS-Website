@@ -24,47 +24,47 @@ const EVENTS = [
   {
     slug: "asian allure 2025",
     title: "Asian Allure 2025",
-    description: "placeholder",
+    description: "Asian American Association (AAA) hosts an anual Asian showcase, which CCS has a segment!",
   },
   {
     slug: "chicago trip",
     title: "Spring Chicago Trip 2026",
-    description: "placeholder",
+    description: "Every spring, CCS goes on a trip to Chinatown for a taste of home!",
   },
   {
     slug: "dumpling",
     title: "Dumpling Night",
-    description: "placeholder",
+    description: "Come help fold and cook (and taste) some dumplings!",
   },
   {
   slug: "frep",
   title: "FREP Event 2026",
-  description: "placeholder",
+  description: "Our beloved FREPs host their own event every year!",
   },
   {
     slug: "game night",
     title: "Weekly Game Night",
-    description: "placeholder",
+    description: "Pull up to game nights for a fun evening of Mahjong and snacks!",
   },
   {
     slug: "hotpot",
     title: "Spring Hotpot",
-    description: "placeholder",
+    description: "Fight those winter blues with friends and a steaming bowl of hotpot!",
   },
   {
     slug: "jammies",
     title: "Jammies 'n Jammies",
-    description: "placeholder",
+    description: "Rock your jammies and sing your socks off at karaoke!",
   },
   {
     slug: "matchmaker",
     title: "LNY Matchmaker Formal 2026",
-    description: "placeholder",
+    description: "Meet your 'red string' at the Lunar New Year Formal!",
   },
   {
     slug: "moonwalk",
     title: "Mid-Autumn Moonwalk",
-    description: "placeholder",
+    description: "Enjoy a solemn night of storytelling and a walk around the lake with mooncakes to celebrate the Mid-Autumn Festival!",
   },
 ];
 
