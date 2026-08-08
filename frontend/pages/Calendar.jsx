@@ -90,6 +90,23 @@ export const Calendar = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    //fetch from API from today to future 
+    //const events = ____
+    //set currEvents(events)
+
+      const now = new Date();
+
+      const sevenDaysFromNow = new Date(now);
+      sevenDaysFromNow.setDate(now.getDate() + 7);
+
+      const getEventStartDate = (event) => {
+        const startValue = event.start.dateTime || event.start.date;
+        return new Date(startValue);
+      };
+
+      const eventsThisWeek = currEvents.filter((event) => {
+        const eventDate = getEventStartDate(event);
+        return eventDate >= now && eventDate <= sevenDaysFromNow;
     fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/calendar-events`)
       .then((res) => {
         if (!res.ok) throw new Error('Network response was not ok');

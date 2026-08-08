@@ -2,16 +2,26 @@ import React from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 
+const devPics = import.meta.glob("../assets/dev_pics/*.{jpg,jpeg,png}", {
+  eager: true,
+  import: "default"
+});
+
+const devPicsByName = {};
+for (const path in devPics) {
+  const match = path.match(/dev_pics\/([^/]+)\.[^.]+$/);
+  const name = match[1];
+  devPicsByName[name] = devPics[path];
+}
+
 const DEVS = [
   {
-    photo: "",
     name: "Loise Wardhana",
     role: "Lead Developer",
     class: "2029",
     linkedin: "https://www.linkedin.com/in/loise-wardhana/"
   },
   {
-    photo: "",
     name: "Michael Salvador",
     role: "Developer",
     class: "2029",
@@ -39,7 +49,7 @@ function SectionHeading({ children }) {
     <div className="flex items-center justify-center gap-3 mb-10">
       <Diamond />
       <h2
-        className="text-[#7a1f1f] text-xl tracking-wide"
+        className="text-[#7a1f1f] text-3xl tracking-wide"
         style={{ fontFamily: "'Playfair Display', serif" }}
       >
         {children}
@@ -63,9 +73,69 @@ export const Developers = () => {
   return (
     <div>
         <Header title="Developers" subtitle="Meet the team that built this website"/>
-
-        <main className="max-w-4xl mx-auto px-6 py-16">
+        <main className="max-w-6xl mx-auto px-6 py-16">
           {/*The Team*/}
+          <SectionHeading>◇ The Team ◇</SectionHeading>
+          <div className="grid sm:grid-cols-2 gap-8 mb-20">
+            {DEVS.map((member) => {
+              const photo = devPicsByName[member.name];
+              return (
+                <div 
+                  key={member.name}
+                  className="group bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-10 text-center transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
+                    {photo ? (
+                      <div className="w-50 h-50 mx-auto mb-6 rounded-md overflow-hidden">
+                        <img
+                          src={photo}
+                          alt={member.name}
+                          className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-30 h-30 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold">
+                        {member.photo}
+                      </div>
+                    )}
+                    <h3 className="text-[#4a3418] font-semibold">
+                      {member.name}
+                    </h3>
+                    <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
+                      {member.role}
+                    </p>
+                     <p className="text-[#7a1f1f] text-xs tracking-wide uppercase mb-3">
+                      {member.class}
+                    </p>
+                    <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4">
+                      {member.bio}
+                    </p>
+                   {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`${member.name} on LinkedIn`}
+                        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#7a1f1f] text-[#f7ecd0] hover:bg-[#8a2b2b] transition-colors"
+                      >
+                        <IconLinkedin className="w-4 h-4" />
+                      </a>
+                   )}
+
+                  </div>
+              );
+            })}
+          </div>
+
+          {/*Built With*/}
+          <SectionHeading>Built With</SectionHeading>
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-20">
+            {BUILT_WITH.map((item) => (
+              <div key={item.name} className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg py-5 text-center transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
+                <p className="text-[#7a1f1f] font-medium text-sm">{item.name}</p>
+                <p className="text-[#8a7856] text-xs mt-1">{item.note}</p>
+              </div>
+            ))}
+          </div>
+
           <SectionHeading>◇ Developers ◇</SectionHeading>
           <div className="grid sm:grid-cols-2 gap-6 mb-20">
             {DEVS.map((member) => (

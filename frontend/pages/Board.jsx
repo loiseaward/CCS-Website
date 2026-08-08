@@ -2,14 +2,14 @@ import React from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
 
-const headshotPics = import.meta.glob("../assets/headshots/*.{jpg,jpeg,png}", {
+const headshotPics = import.meta.glob("../assets/board/*.{jpg,jpeg,png}", {
   eager: true,
   import: "default"
 });
 
 const headshotsByName ={};
 for (const path in headshotPics) {
-  const match = path.match(/headshots\/([^/]+)\.[^.]+$/);
+  const match = path.match(/board\/([^/]+)\.[^.]+$/);
   const name = match[1];
   headshotsByName[name] = headshotPics[path];
 }
@@ -20,66 +20,77 @@ const BOARD = [
     role: "Co-president (Spring)",
     bio: "Junior majoring in Finance and Global Affairs",
     contact: "cwu25@nd.edu",
+    objectPosition: "" //adjust the headshots
   },
   {
     name: "Maeve Maginn",
     role: "Co-president",
     bio: "Junior majoring in Psychology and Pre-Health",
     contact: "mmaginn@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Kalena Yee",
     role: "Co-president (Fall)",
     bio: "Junior majoring in Business Analytics and Marketing",
     contact: "kyee3@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Olivia Wang",
     role: "Co-vice president",
     bio: "Junior majoring in Finance",
     contact: "owang3@nd.edu",
+    objectPosition: "center 20%"
   },
   {
     name: "Niki Lee",
     role: "Co-vice president",
     bio: "Sophomore majoring in Mechanical Engineering",
     contact: "nlee26@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Canon Chiu",
     role: "Co-secretary",
     bio: "Sophomore majoring in Finance and Political Science",
     contact: "cchiu4@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Jodie Lam",
     role: "Co-secretary",
     bio: "Sophomore majoring in Architecture",
     contact: "jlam6@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Michael Salvador",
     role: "Co-treasurer",
     bio: "Sophomore majoring in Physics and Mathematics",
     contact: "msalvad2@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Loise Wardhana",
     role: "Co-treasurer",
     bio: "Sophomore majoring in Computer Science and Mathematics",
     contact: "lwardhan@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Maddie Xu",
-    role: "Event Co-Coordinator",
-    bio: "Sophomore majoring in Neuroscience",
+    role: "Co-event Coordinator",
+    bio: "Sophomore majoring in Neuroscience and Behaviour",
     contact: "mxu7@nd.edu",
+    objectPosition: ""
   },
   {
     name: "Judie Yuan",
-    role: "Event Co-Coordinator",
-    bio: "Sophomore majoring in Neuroscience",
+    role: "Co-event Coordinator",
+    bio: "Sophomore majoring in Neuroscience and Behaviour",
     contact: "zyuan3@nd.edu",
+    objectPosition: ""
   }
 ];
 
@@ -97,8 +108,8 @@ function SectionHeading({ children }) {
     <div className="flex items-center justify-center gap-3 mb-10">
       <Diamond />
       <h2
-        className="text-[#7a1f1f] text-xl tracking-wide"
-        style={{ fontFamily: "'Playfair Display', serif" }}
+        className="text-[#7a1f1f] text-3xl tracking-wide"
+        style={{fontFamily:"'Playfair Display', serif"}}
       >
         {children}
       </h2>
@@ -110,15 +121,20 @@ function SectionHeading({ children }) {
 function BoardCards({member}) {
   const headshot = headshotsByName[member.name];
   return (
-    <div className="w-64 bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-6 text-center">
+    <div className="group w-64 bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-6 text-center transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
       {headshot ? (
-        <img
-          src={headshot}
-          alt={member.name}
-          className="w-14 h-14 mx-auto mb-4 rounded-md object-cover"
-        />
+        <div className="w-40 h-40 mx-auto mb-4 rounded-md overflow-hidden">
+          <img
+            src={headshot}
+            alt={member.name}
+            className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
+            style={{
+              objectPosition: member.objectPosition || "center",
+            }}
+          />
+        </div>
       ) : (
-      <div className="w-14 h-14 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold nice-font">
+      <div className="w-24 h-24 mx-auto mb-4 rounded-md bg-[#7a1f1f] text-[#f7ecd0] flex items-center justify-center text-xl font-semibold nice-font transition-transform duration-300 ease-out group-hover:scale-110">
         {member.photo || member.name.charAt(0)}
       </div>
       )}
@@ -134,12 +150,12 @@ function BoardCards({member}) {
         </p>
       )}
       {member.contact && (
-            <a
-              href={`mailto:${member.contact}`}
-              className="inline-flex items-center gap-1.5 text-xs text-[#7a1f1f] hover:underline simple-font"
-            >
-              ✉ Contact
-            </a>
+        <a
+          href={`mailto:${member.contact}`}
+          className="inline-flex items-center gap-1.5 text-xs text-[#7a1f1f] hover:underline simple-font"
+        >
+          ✉ Contact
+        </a>
       )}
     </div>
   );
