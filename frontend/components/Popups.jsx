@@ -23,13 +23,13 @@ export default function FormPopup(props) {
     setName('');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); // Prevents page reload
     console.log("Submitted email:", email);
     console.log("Submitted name:", name);
 
     // data sent to backend here either to add or delete
-    props.function(email, name);
+    await props.function(email, name);
 
     handleClose();
   };

@@ -16,18 +16,18 @@ for (const path in headshotPics) {
 
 const BOARD = [
   {
-    name: "Stephen Wu",
-    role: "Co-president (Spring)",
-    bio: "Junior majoring in Finance and Global Affairs",
-    contact: "cwu25@nd.edu",
-    objectPosition: "" //adjust the headshots
-  },
-  {
     name: "Maeve Maginn",
     role: "Co-president",
     bio: "Junior majoring in Psychology and Pre-Health",
     contact: "mmaginn@nd.edu",
     objectPosition: ""
+  },
+  {
+    name: "Stephen Wu",
+    role: "Co-president (Spring)",
+    bio: "Junior majoring in Finance and Global Affairs",
+    contact: "cwu25@nd.edu",
+    objectPosition: "" //adjust the headshots
   },
   {
     name: "Kalena Yee",
