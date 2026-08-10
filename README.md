@@ -20,3 +20,8 @@ Revamped and Redesigned CCS Website
 - [X] Login and Authentication
 - [ ] Wecap Archive
 - [X] Calendar & Event System
+
+## Details
+- [ ] Captions/Pictures 
+- [ ] Update DB 
+- [ ] Host Website 
