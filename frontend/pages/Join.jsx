@@ -111,7 +111,7 @@ export const Join = () => {
                 </div>
                 <h2 className="nice-font ccs-merch-title">CCS Merchandise</h2>
                 <p className="ccs-merch-description simple-font">
-                  CCS is currently selling an embroidered blue sweatshirtp, perfect for any event. Look out for new merchandise in the upcoming shcool year!
+                  CCS is currently selling an embroidered white and blue sweatshirt, perfect for any event. Look out for new merchandise in the upcoming shcool year!
                 </p>
                 <ul className="ccs-merch-list !list-none simple-font">
                   <li><span className="text-[#9a2d24] select-none">♦</span> Elegant embroidery and design</li>

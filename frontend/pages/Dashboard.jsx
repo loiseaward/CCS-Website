@@ -4,7 +4,7 @@ import '../styles/index.css';
 import welcome from "../assets/welcome.jpg";
 import FormPopup from "../components/Popups.jsx"
 import React, { useState } from 'react';
-import { Button, Dialog, DialogContent, DialogTitle, TextField, Stack, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Typography } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -27,13 +27,7 @@ title: "Master Google Drive",
 {
   url: "https://drive.google.com/drive/u/0/folders/1XyJRhgIEkzqmX7jiHvbf7aBQB0z50gpb",
   title: "Media",
-  url:"https://youtu.be/JwB-iVAfnMo?si=HnDCuv8PTjWWo7rM",
-  title: "Another Resource",
-}, 
-{
-  url:"https://sao.nd.edu/resources/group-management/forms/",
-  title: "SAO Reimbursment Form (Treasurers)",
-}]
+}, ]
 
 function PdfUploader({ onUploaded }) {
   const [formData, setFormData] = useState({
@@ -143,12 +137,60 @@ function PdfUploader({ onUploaded }) {
   );
 }
 
-function addAdmin (email, name){
+async function addAdmin (email, name){
   console.log("Admin added", email, name)
+  const payload = { email: email, name: name };
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+    try {
+      // POST request
+      const response = await fetch(`${apiUrl}/api/add-admin`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload), // Converts object to string
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data.message || 'Admin saved successfully!');
+      } else {
+        console.error(data.error || 'Server returned an error.');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
 }
 
-function deleteAdmin (email, name) {
-  console.log("Admin Deleted:", email, name)
+async function deleteAdmin (email, name) {
+  //console.log("Admin Deleted:", email, name);
+  const payload = { email: email, name: name };
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+    try {
+      // POST request
+      const response = await fetch(`${apiUrl}/api/delete-admin`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload), // Converts object to string
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log(data.message || 'Admin deleted successfully!');
+      } else {
+        console.error(data.error || 'Server returned an error.');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
 }
 
 const ResourceCards = (props) => {
@@ -165,6 +207,38 @@ const ResourceCards = (props) => {
 export const Dashboard = () => {
   const { adminEmail, adminName, logoutAdmin } = useAdmin();
   const [uploadOpen, setUploadOpen] = useState(false);
+  const [adminListOpen, setAdminListOpen] = useState(false);
+  const [admins, setAdmins] = useState([]);
+  const [adminsLoading, setAdminsLoading] = useState(false);
+  const [adminsError, setAdminsError] = useState('');
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
+  const openAdminList = async () => {
+    setAdminListOpen(true);
+    setAdminsLoading(true);
+    setAdminsError('');
+
+    try {
+      const response = await fetch(`${apiUrl}/api/admins`, {
+        credentials: 'include',
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setAdmins([]);
+        setAdminsError(data.error || 'Unable to load admins');
+        return;
+      }
+
+      setAdmins(data.admins || []);
+    } catch (error) {
+      console.error('Failed to load admins:', error);
+      setAdmins([]);
+      setAdminsError('Network error while loading admins');
+    } finally {
+      setAdminsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f2e8d5]">
@@ -216,9 +290,34 @@ export const Dashboard = () => {
               </div>
               <div className="group border border-[#dfc286] bg-[#fff8ea] p-6">
                 <h2 className="nice-font text-xl !font-semibold text-[#84211b]">Manage CCS Admin</h2>
-                <div className='flex flex-row gap-4'>
+                <div className='flex flex-row flex-wrap gap-4'>
+                  <div className="pt-5">
+                    <Button
+                      variant="contained"
+                      onClick={openAdminList}
+                      sx={{
+                        backgroundColor: '#84211b',
+                        border: '1px solid #84211b',
+                        borderRadius: 0,
+                        boxShadow: 'none',
+                        color: '#fff8ea',
+                        fontFamily: 'Roboto, sans-serif',
+                        fontSize: '0.875rem',
+                        fontWeight: 500,
+                        padding: '10px 20px',
+                        textTransform: 'none',
+                        '&:hover': {
+                          backgroundColor: '#6f1b16',
+                          boxShadow: 'none',
+                        },
+                      }}
+                    >
+                      View CCS Admins
+                    </Button>
+                  </div>
                   <FormPopup function={addAdmin} type="add"/>
                   <FormPopup function={deleteAdmin} type="remove"/>
+
                 </div>
               </div>
             </section>
@@ -260,6 +359,81 @@ export const Dashboard = () => {
           <DialogContent sx={{ padding: 0 }}>
             <PdfUploader onUploaded={() => setUploadOpen(false)} />
           </DialogContent>
+        </Dialog>
+
+        <Dialog
+          open={adminListOpen}
+          onClose={() => setAdminListOpen(false)}
+          fullWidth
+          maxWidth="sm"
+          slotProps={{
+            paper: {
+              sx: {
+                backgroundColor: '#fff8ea',
+                border: '1px solid #dfc286',
+                borderRadius: 0,
+                boxShadow: '0 18px 45px rgba(63,30,20,0.22)',
+              },
+            },
+            backdrop: {
+              sx: {
+                backgroundColor: 'rgba(32, 12, 11, 0.45)',
+              },
+            },
+          }}
+        >
+          <DialogTitle
+            className="nice-font"
+            sx={{
+              borderBottom: '1px solid #dfc286',
+              color: '#84211b',
+              fontSize: '1.75rem',
+              fontWeight: 700,
+              padding: '22px 24px 16px',
+            }}
+          >
+            Current CCS Admins
+          </DialogTitle>
+          <DialogContent sx={{ padding: '24px' }}>
+            {adminsLoading && (
+              <p className="simple-font text-[#331a11]">Loading admins...</p>
+            )}
+            {!adminsLoading && adminsError && (
+              <p className="simple-font text-[#84211b]">{adminsError}</p>
+            )}
+            {!adminsLoading && !adminsError && admins.length === 0 && (
+              <p className="simple-font text-[#331a11]">No admins found.</p>
+            )}
+            {!adminsLoading && !adminsError && admins.length > 0 && (
+              <div className="divide-y divide-[#dfc286] border border-[#dfc286]">
+                {admins.map((admin) => (
+                  <div key={admin.email} className="bg-[#f2e8d5] px-4 py-3">
+                    <p className="simple-font text-base font-semibold text-[#331a11]">{admin.name}</p>
+                    <p className="simple-font text-sm text-neutral-600">{admin.email}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions sx={{ borderTop: '1px solid #dfc286', padding: '16px 24px 22px' }}>
+            <Button
+              onClick={() => setAdminListOpen(false)}
+              sx={{
+                border: '1px solid #dfc286',
+                borderRadius: 0,
+                color: '#331a11',
+                fontFamily: 'Roboto, sans-serif',
+                padding: '8px 18px',
+                textTransform: 'none',
+                '&:hover': {
+                  backgroundColor: '#f2e8d5',
+                  borderColor: '#cd9b55',
+                },
+              }}
+            >
+              Close
+            </Button>
+          </DialogActions>
         </Dialog>
     </div>
   );

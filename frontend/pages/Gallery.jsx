@@ -24,7 +24,7 @@ const EVENTS = [
   {
     slug: "asian allure 2025",
     title: "Asian Allure 2025",
-    description: "Asian American Association (AAA) hosts an anual Asian showcase, which CCS has a segment!",
+    description: "Asian American Association (AAA) hosts an annual Asian showcase, which CCS has a segment!",
   },
   {
     slug: "chicago trip",

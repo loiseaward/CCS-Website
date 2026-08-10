@@ -7,6 +7,7 @@ import connectPgSimple from 'connect-pg-simple';
 import passport from './config/passport.js';
 import authRoutes from './routes/auth.js';
 import cors from 'cors';
+import sql from './db/pool.js';
 
 const app = express();
 const allowedOrigins = [
@@ -52,11 +53,93 @@ app.use(passport.session());
 app.use('/auth', authRoutes);
 
 //routes here
+app.post('/api/add-admin', async (req, res) => {
+  const email = req.body.email?.trim().toLowerCase();
+  const name = req.body.name?.trim();
+
+  if (!email || !name) {
+    return res.status(400).json({ error: 'Email and name are required' });
+  }
+
+  try{
+    const existing = await sql`
+          SELECT *
+          FROM board_members
+          WHERE email = ${email}
+        `;
+    
+    if (existing.length === 0) { //not in db yet
+      await sql`
+        INSERT INTO board_members (email, name, role)
+        VALUES (${email}, ${name}, 'admin')
+      `;
+
+      return res.status(201).json({ message: 'Admin added', email, name });
+    }
+
+    return res.status(200).json({ message: 'Admin already exists', admin: existing[0] });
+  }
+  catch(err){
+    console.error('Failed to add admin:', err);
+    return res.status(500).json({ error: 'Failed to add admin' });
+  }
+});
+
+app.post('/api/delete-admin', async (req, res) => {
+  const email = req.body.email?.trim().toLowerCase();
+
+  if (!email) {
+    return res.status(400).json({ error: 'Email is required' });
+  }
+
+  try{
+    const existing = await sql`
+          SELECT *
+          FROM board_members
+          WHERE email = ${email}
+        `;
+    
+    if (existing.length === 1) {
+      await sql`
+        DELETE FROM board_members
+        WHERE email = ${email}
+      `;
+
+      return res.status(200).json({ message: 'Admin deleted', email });
+    }
+
+    return res.status(404).json({ error: 'Admin not found' });
+  }
+  catch(err){
+    console.error('Failed to delete admin:', err);
+    return res.status(500).json({ error: 'Failed to delete admin' });
+  }
+});
+
+app.get('/api/admins', async (req, res) => {
+  if (!req.isAuthenticated() || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admins only' });
+  }
+
+  try {
+    const admins = await sql`
+      SELECT name, email
+      FROM board_members
+      WHERE role = 'admin'
+      ORDER BY name, email
+    `;
+
+    return res.json({ admins });
+  } catch (err) {
+    console.error('Failed to load admins:', err);
+    return res.status(500).json({ error: 'Failed to load admins' });
+  }
+});
 
 app.get('/api/me', (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ //send information to frontend saved in session
-      isAdmin: true,
+      isAdmin: req.user.role === 'admin',
       adminName: req.user.name,
       adminEmail: req.user.email,
     });
