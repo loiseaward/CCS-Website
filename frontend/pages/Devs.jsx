@@ -46,7 +46,7 @@ function Diamond() {
 
 function SectionHeading({ children }) {
   return (
-    <div className="flex items-center justify-center gap-3 mb-10">
+    <div className="flex items-center justify-center gap-3 mt-5 mb-10">
       <Diamond />
       <h2
         className="text-[#7a1f1f] text-3xl tracking-wide"
@@ -125,6 +125,19 @@ export const Developers = () => {
             })}
           </div>
 
+          {/*About*/}
+          <SectionHeading>About This Project</SectionHeading>
+          <div className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-8 mb-20">
+            <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4 text-center">
+              This website was built to redesign the old CCS website, including a more unique design and 
+              more interative features. Please contact the developers or CCS board if you have any questions, notice bugs or 
+              would like to contribute suggestions to the project. 
+            </p>
+            <p className="text-[#6b5a3d] text-sm !font-bold eading-relaxed mb-4 text-center">
+              ◇ ccs@nd.edu ◇ lwardhan@nd.edu ◇ msalvad2@nd.edu ◇
+            </p>
+          </div>
+
           {/*Built With*/}
           <SectionHeading>Built With</SectionHeading>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-20">
@@ -134,19 +147,6 @@ export const Developers = () => {
                 <p className="text-[#8a7856] text-xs mt-1">{item.note}</p>
               </div>
             ))}
-          </div>
-
-          {/*About*/}
-          <SectionHeading>About This Project</SectionHeading>
-          <div className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-8">
-            <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4 text-center">
-              This website was built to redesign the old CCS website, including a more unique design and 
-              more interative features. Please contact the developers or CCS board if you have any questions, notice bugs or 
-              would like to contribute suggestions to the project. 
-            </p>
-            <p className="text-[#6b5a3d] text-sm !font-bold eading-relaxed mb-4 text-center">
-              ◇ ccs@nd.edu ◇ lwardhan@nd.edu ◇ msalvad2@nd.edu ◇
-            </p>
           </div>
         </main>
     </div>
