@@ -54,11 +54,17 @@ export const Archive = () => {
     console.log(selectedYears)
 
     if (selectedYears.length === 0) {
-      //fetch all from backend
+      setWecapsResults(placeholderresults);
       return;
     }
 
     //select only the selected years from backend
+    const filteredResults = placeholderresults.filter((wecap) => {
+      const issueYear = new Date(wecap.uploaded_at).getFullYear().toString();
+      return selectedYears.includes(issueYear);
+    });
+    
+    setWecapsResults(filteredResults);
   }
 
   return (
@@ -105,7 +111,7 @@ export const Archive = () => {
           <section className="wecap-archive-results">
             <h2 className="nice-font text-xl !font-normal">Results</h2>
             <p className="simple-font mt-3 mb-3 !text-sm !text-[#725648]">
-              Showing 1-{wecapsResults.length} 
+              Showing {wecapsResults.length ? `1 - ${wecapsResults.length}` : '0'} 
             </p>
             <div className="wecap-archive-list">
               {wecapsResults.map((wecap) => (

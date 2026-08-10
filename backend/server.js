@@ -179,6 +179,15 @@ app.get('/api/calendar-events', async (req, res) => {
   }
 });
 
+app.get('/api/wecaps-main', async (req, res) => {
+  //send most recent 3
+});
+
+app.post('/api/wecaps-archive', async (req, res) => {
+  //send all or filtered by years
+  const years = req.body.years || [];
+});
+
 //listening
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
