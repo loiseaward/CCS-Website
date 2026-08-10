@@ -20,7 +20,7 @@ router.get(
 );
 
 router.get('/login-failed', (req, res) => {
-  res.status(401).send(`<a href="/auth/google">Try again</a>`);
+  res.status(401).send(`<a href="/auth/google">Account not authorized. Try again</a>`);
 });
 
 router.post('/logout', (req, res, next) => {
