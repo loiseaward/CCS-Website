@@ -2,25 +2,26 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from "react-router-dom";
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
+import { WecapCards } from "./Archive.jsx";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 import pdfWorker from "pdfjs-dist/legacy/build/pdf.worker.mjs?url";
-import mainPdf from "../assets/samplepdfs/mainpdf.pdf";
-import suppPdf from "../assets/samplepdfs/supppdf.pdf";
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const PdfPreview = ({ fileUrl, fileName }) => {
-  const canvasRef = useRef(null);
+  const viewerRef = useRef(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    let renderTask = null;
+    const renderTasks = [];
     let loadingTask = null;
     let isCancelled = false;
     const controller = new AbortController();
+    const viewer = viewerRef.current;
 
     const renderPdf = async () => {
       setError("");
+      viewer?.replaceChildren();
 
       try {
         const response = await fetch(fileUrl, { signal: controller.signal });
@@ -32,24 +33,36 @@ const PdfPreview = ({ fileUrl, fileName }) => {
         const pdfData = new Uint8Array(await response.arrayBuffer());
         loadingTask = pdfjsLib.getDocument({ data: pdfData });
         const pdf = await loadingTask.promise;
-        const page = await pdf.getPage(1);
-        const viewport = page.getViewport({ scale: 1.5 });
-        const canvas = canvasRef.current;
 
-        if (!canvas || isCancelled) {
+        if (!viewer || isCancelled) {
           return;
         }
 
-        const context = canvas.getContext("2d");
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+          if (isCancelled) {
+            return;
+          }
 
-        renderTask = page.render({
-          canvasContext: context,
-          viewport,
-        });
+          const page = await pdf.getPage(pageNumber);
+          const viewport = page.getViewport({ scale: 1.5 });
+          const canvas = document.createElement("canvas");
+          const context = canvas.getContext("2d");
 
-        await renderTask.promise;
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          canvas.className = "pdf-page-canvas";
+          canvas.setAttribute("aria-label", `${fileName} page ${pageNumber}`);
+
+          viewer.appendChild(canvas);
+
+          const renderTask = page.render({
+            canvasContext: context,
+            viewport,
+          });
+
+          renderTasks.push(renderTask);
+          await renderTask.promise;
+        }
       } catch (error) {
         if (!isCancelled && error.name !== "AbortError") {
           console.error("PDF preview failed:", error);
@@ -63,22 +76,23 @@ const PdfPreview = ({ fileUrl, fileName }) => {
     return () => {
       isCancelled = true;
       controller.abort();
-      renderTask?.cancel();
+      renderTasks.forEach((task) => task.cancel());
       loadingTask?.destroy();
+      viewer?.replaceChildren();
     };
   }, [fileUrl]);
 
   return (
      
     <div className="pdf-decor">
-      <div style={{ width: '100%', border: '4px solid #dfc286', background: '#f5f5f5' }}>
+      <div className="pdf-viewer-scroll">
         {error ? (
           <p style={{ padding: '20px', margin: 0 }}>{error}</p>
         ) : (
-          <canvas
-            ref={canvasRef}
+          <div
+            ref={viewerRef}
             aria-label={fileName}
-            style={{ display: 'block', width: '100%', height: 'auto' }}
+            className="pdf-viewer-pages"
           />
         )}
       </div>
@@ -88,21 +102,62 @@ const PdfPreview = ({ fileUrl, fileName }) => {
 
 
 const WecapViewer = () => {
-  const documents = [
-    { id: 1, file_name: "Week 3 Newsletter.pdf", uploaded_at: "2026-07-10", filePath: mainPdf },
-    { id: 2, file_name: "Week 2 Newsletter.pdf", uploaded_at: "2026-07-03", filePath: suppPdf },
-    { id: 3, file_name: "Week 1 Newsletter.pdf", uploaded_at: "2026-06-26", filePath: suppPdf }
-  ]; //array of info for the pdfs
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const [documents, setDocuments] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  //backend fetch to get the actual most recent 3 here
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function loadRecentWecaps() {
+      try {
+        const response = await fetch(`${apiUrl}/api/wecaps-main`, {
+          credentials: 'include',
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Wecaps request failed with ${response.status}`);
+        }
+
+        const data = await response.json();
+        const recentWecaps = (data.recent_wecaps || []).map((doc) => ({
+          ...doc,
+          filePath: `${apiUrl}/api/get-pdf/${doc.id}`,
+        }));
+
+        setDocuments(recentWecaps);
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          console.error("Failed to load recent Wecaps:", error);
+          setError("Wecaps could not be loaded right now.");
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoading(false);
+        }
+      }
+    }
+
+    loadRecentWecaps();
+
+    return () => controller.abort();
+  }, [apiUrl]);
 
   const latestDoc = documents[0];
   const olderDocs = documents.slice(1);
-  //convert from binary data to blob to pdf viewing URL for latest
 
   return (<>
     <div style={{ maxWidth: '1000px', margin: '0 auto', padding: '50px' }}>
-      
+      {isLoading && (
+        <p className="simple-font text-center">Loading Wecaps...</p>
+      )}
+
+      {error && (
+        <p className="simple-font text-center">{error}</p>
+      )}
+
       {latestDoc && (
         <div style={{ marginBottom: '40px' }}>
           <div className="mb-8">
@@ -133,33 +188,15 @@ const WecapViewer = () => {
           <h3 className="text-3xl nice-font !font-bold mb-10 text-center">Missed a Week? See our Archive Below</h3>
           
           <div className="wecap-archive-list">
-            {olderDocs.map((doc) => {
-              const issueDate = new Date(doc.uploaded_at);
-
-              return (
-                <a
-                  key={doc.id}
-                  href={doc.filePath}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="wecap-archive-card"
-                >
-                  <span className="wecap-archive-accent" aria-hidden="true" />
-                  <div className="wecap-archive-date">
-                    <span>{issueDate.toLocaleString("en-US", { month: "short" }).toUpperCase()} {issueDate.toLocaleString('default', { day: 'numeric' })}</span>
-                    <span>{issueDate.getFullYear()}</span>
-                  </div>
-                  <div className="wecap-archive-content">
-                    <h4 className="wecap-archive-title nice-font">
-                      Wecap {doc.file_name}
-                    </h4>
-                    <div className="wecap-archive-tags simple-font">
-                      <span>PDF</span>
-                    </div>
-                  </div>
-                </a>
-              );
-            })}
+            {olderDocs.map((doc) => (
+              <WecapCards
+                key={doc.id}
+                id={doc.id}
+                uploaded_at={doc.uploaded_at}
+                filePath={doc.filePath}
+                file_name={doc.file_name}
+              />
+            ))}
           </div>
         </div>
       )}

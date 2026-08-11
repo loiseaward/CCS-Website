@@ -1,16 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx";
-import mainPdf from "../assets/samplepdfs/mainpdf.pdf";
-import suppPdf from "../assets/samplepdfs/supppdf.pdf";
 
-const placeholderresults = [
-    { id: 1, file_name: "Week 3 Newsletter.pdf", uploaded_at: "2026-07-10", filePath: mainPdf },
-    { id: 2, file_name: "Week 2 Newsletter.pdf", uploaded_at: "2026-07-03", filePath: suppPdf },
-    { id: 3, file_name: "Week 1 Newsletter.pdf", uploaded_at: "2026-06-26", filePath: suppPdf }
-  ]; //array of info for the pdfs
-
-const WecapCards = (props) =>{
+export const WecapCards = (props) =>{
   const issueDate = new Date(props.uploaded_at);
       return (
             <a
@@ -39,12 +31,39 @@ const WecapCards = (props) =>{
 
 
 export const Archive = () => {
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 4 }, (_, index) => currentYear - index);
 
-  const [wecapsResults, setWecapsResults] = useState(placeholderresults);
+  const [wecapsResults, setWecapsResults] = useState([]);
+  const [selectedYears, setSelectedYears] = useState([]);
 
   //useffect to load in all at first
+  useEffect(() => {
+    const fetchWecaps = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/wecaps-archive`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ years: selectedYears }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Archive request failed with ${response.status}`);
+        }
+
+        const data = await response.json();
+        const results = data.recent_wecaps || [];
+        setWecapsResults(results);
+      } catch (error) {
+        console.error('Error fetching wecaps:', error);
+        setWecapsResults([]);
+      }
+    };
+
+    fetchWecaps();
+  }, [apiUrl, selectedYears]);
 
   //function to fetch from backend here and get new array of objects if form submkitted
   function handleFilter(e) {
@@ -53,18 +72,7 @@ export const Archive = () => {
     const selectedYears = formData.getAll('years');
     console.log(selectedYears)
 
-    if (selectedYears.length === 0) {
-      setWecapsResults(placeholderresults);
-      return;
-    }
-
-    //select only the selected years from backend
-    const filteredResults = placeholderresults.filter((wecap) => {
-      const issueYear = new Date(wecap.uploaded_at).getFullYear().toString();
-      return selectedYears.includes(issueYear);
-    });
-    
-    setWecapsResults(filteredResults);
+    setSelectedYears(selectedYears);
   }
 
   return (
@@ -119,7 +127,7 @@ export const Archive = () => {
                   key={wecap.id}
                   id={wecap.id}
                   uploaded_at={wecap.uploaded_at}
-                  filePath={wecap.filePath}
+                  filePath={`${apiUrl}/api/get-pdf/${wecap.id}`}
                   file_name={wecap.file_name}
                 />
               ))}
