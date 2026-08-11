@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
     session({
-        store: new pgSession({ conString: process.env.DATABASE_URL, tableName: 'session', pruneSessionInterval: 60 * 60 * 24}), //connects to sql data table
+        store: new pgSession({ conString: process.env.DATABASE_URL, tableName: 'session', pruneSessionInterval: 60 * 60 * 24 *3 }), //connects to sql data table
         secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false, //save memory from inactive sessions
@@ -150,6 +150,12 @@ app.get('/api/admins', async (req, res) => {
 });
 
 app.get('/api/me', (req, res) => {
+  console.log('origin:', req.headers.origin);
+  console.log('cookie:', req.headers.cookie);
+  console.log('sessionID:', req.sessionID);
+  console.log('session:', req.session);
+  console.log('isAuthenticated:', req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     res.json({ //send information to frontend saved in session
       isAdmin: req.user.role === 'admin',
