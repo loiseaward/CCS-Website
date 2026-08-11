@@ -522,6 +522,7 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border: 1px solid rgba(255, 247, 232, 0.12);
+  border-radius: 0.5rem;
   box-shadow: 0 10px 20px rgba(111, 111, 111, 0.2);
   transition: transform 160ms ease, box-shadow 160ms ease, filter 160ms ease;
 }
