@@ -42,7 +42,7 @@ export default function FormPopup(props) {
         sx={{
           backgroundColor: '#84211b',
           border: '1px solid #84211b',
-          borderRadius: 0,
+          borderRadius: 2,
           boxShadow: 'none',
           color: '#fff8ea',
           fontFamily: 'Roboto, sans-serif',
@@ -69,7 +69,7 @@ export default function FormPopup(props) {
             sx: {
               backgroundColor: '#fff8ea',
               border: '1px solid #dfc286',
-              borderRadius: 0,
+              borderRadius: 2,
               boxShadow: '0 18px 45px rgba(63,30,20,0.22)',
             },
           },
@@ -117,7 +117,7 @@ export default function FormPopup(props) {
                 },
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: '#f2e8d5',
-                  borderRadius: 0,
+                  borderRadius: 2,
                   color: '#331a11',
                   fontFamily: 'Roboto, sans-serif',
                   '& fieldset': {
@@ -152,7 +152,7 @@ export default function FormPopup(props) {
                 },
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: '#f2e8d5',
-                  borderRadius: 0,
+                  borderRadius: 2,
                   color: '#331a11',
                   fontFamily: 'Roboto, sans-serif',
                   '& fieldset': {
@@ -174,7 +174,7 @@ export default function FormPopup(props) {
               onClick={handleClose}
               sx={{
                 border: '1px solid #dfc286',
-                borderRadius: 0,
+                borderRadius: 2,
                 color: '#331a11',
                 fontFamily: 'Roboto, sans-serif',
                 padding: '8px 18px',
@@ -193,7 +193,7 @@ export default function FormPopup(props) {
               sx={{
                 backgroundColor: '#84211b',
                 border: '1px solid #84211b',
-                borderRadius: 0,
+                borderRadius: 2,
                 boxShadow: 'none',
                 color: '#fff8ea',
                 fontFamily: 'Roboto, sans-serif',

@@ -13,6 +13,7 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173', 
   process.env.FRONTEND_URL,
+  'https://ccsnd.com'
 ].filter(Boolean);
 
 app.use(cors({
@@ -44,6 +45,8 @@ app.use(
         cookie: {
             maxAge: 3 * 24 * 60 * 60 * 1000, //3 days
             httpOnly: true, //i dont rlly understand it but its for security reasons??
+            secure: true,
+            sameSite: 'none', //required for cross-domain cookies
         }
     })
 );

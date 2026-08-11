@@ -130,11 +130,13 @@ export const Developers = () => {
           <div className="bg-[#ede0bf] border border-[#e0cf9d] rounded-lg p-8 mb-20">
             <p className="text-[#6b5a3d] text-sm leading-relaxed mb-4 text-center">
               This website was built to redesign the old CCS website, including a more unique design and 
-              more interative features. Please contact the developers or CCS board if you have any questions, notice bugs or 
+              more interactive features. Please contact the developers or CCS board if you have any questions, notice bugs or 
               would like to contribute suggestions to the project. 
             </p>
-            <p className="text-[#6b5a3d] text-sm !font-bold eading-relaxed mb-4 text-center">
-              ◇ ccs@nd.edu ◇ lwardhan@nd.edu ◇ msalvad2@nd.edu ◇
+            <p className="text-[#6b5a3d] text-sm !font-bold leading-relaxed mb-4 text-center">
+              ◇ <a href="mailto:ccs@nd.edu" className="hover:underline hover:text-[#7a1f1f]">ccs@nd.edu</a> ◇{" "}
+               <a href="mailto:lwardhan@nd.edu" className="hover:underline hover:text-[#7a1f1f]">lwardhan@nd.edu</a> ◇{" "}
+               <a href="mailto:msalvad2@nd.edu" className="hover:underline hover:text-[#7a1f1f]">msalvad2@nd.edu</a> ◇
             </p>
           </div>
 

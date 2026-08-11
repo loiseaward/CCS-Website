@@ -10,23 +10,34 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
+import AddToDriveIcon from '@mui/icons-material/AddToDrive';
+import FeedIcon from '@mui/icons-material/Feed';
+import SpeakerNotesIcon from '@mui/icons-material/SpeakerNotes';
+import WarehouseIcon from '@mui/icons-material/Warehouse';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
 
 const resourceLinks = [{
-url: "https://drive.google.com/drive/u/0/folders/0ACCvP0Atflf9Uk9PVA",
-title: "Master Google Drive", 
+  url: "https://drive.google.com/drive/u/0/folders/0ACCvP0Atflf9Uk9PVA",
+  title: "Master Google Drive", 
+  icon: <AddToDriveIcon fontSize="small" />,
 }, {
   url: "https://nd.qualtrics.com/jfe/form/SV_9SRtKEKlqbzrInc",
   title: "Reimbursement Form",
+  icon: <FeedIcon fontSize="small" />,
 }, {
   url: "https://docs.google.com/document/d/1uOkWtD1QrgiDtePB19_VN8n_IqbxvwzHfJJS6caoGa0/edit?tab=t.0",
-  title:"Meeting Notes"
+  title:"Meeting Notes",
+  icon: <SpeakerNotesIcon fontSize="small" />,
 }, {
   url: "https://docs.google.com/spreadsheets/d/1Oo7HXJWD9Ff-21-zKh2rI4k-K3JcWbBBLzvB9MhtKA4/edit",
-  title: "Storage Inventory",
+  title: "Storage Database",
+  icon: <WarehouseIcon fontSize="small" />,
+
 }, 
 {
   url: "https://drive.google.com/drive/u/0/folders/1XyJRhgIEkzqmX7jiHvbf7aBQB0z50gpb",
   title: "Media",
+  icon: <CameraAltIcon fontSize="small" />,
 }, ]
 
 function PdfUploader({ onUploaded }) {
@@ -98,6 +109,7 @@ function PdfUploader({ onUploaded }) {
           startIcon={<CloudUploadIcon />}
           sx={{ 
           backgroundColor: '#84211b', // Your custom hex color
+          borderRadius: 2,
           '&:hover': {
             backgroundColor: '#722622', // Darker shade for the hover effect
           },
@@ -125,6 +137,7 @@ function PdfUploader({ onUploaded }) {
           disabled={!formData.pdfFile || !formData.file_name || !formData.uploaded_at}
           sx={{ 
           backgroundColor: '#9f1d16', // Your custom hex color
+          borderRadius: 2,
           '&:hover': {
             backgroundColor: '#9f1d16', // Darker shade for the hover effect
           },
@@ -197,8 +210,9 @@ const ResourceCards = (props) => {
   return(
     <a
       href={props.link || null}
-      className="simple-font flex min-h-24 text-lg items-center justify-center border border-[#dfc286] bg-[#f2e8d5] px-4 py-5 text-center text-sm font-semibold text-[#331a11] shadow-[0_6px_14px_rgba(63,30,20,0.08)] transition hover:-translate-y-0.5 hover:border-[#84211b] hover:bg-[#fff8ea] hover:text-[#84211b]"
+      className="simple-font flex min-h-24 text-lg items-center justify-center gap-2 border border-[#dfc286] bg-[#f2e8d5] px-4 py-5 text-center text-sm font-semibold text-[#331a11] shadow-[0_6px_14px_rgba(63,30,20,0.08)] transition hover:-translate-y-0.5 hover:border-[#84211b] hover:bg-[#fff8ea] hover:text-[#84211b] rounded-lg"
     >
+      {props.icon}
       {props.resourceName}
     </a>
   )
@@ -262,7 +276,7 @@ export const Dashboard = () => {
               <button
                 type="button"
                 onClick={logoutAdmin}
-                className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16]"
+                className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg"
               >
                 Log out
               </button>
@@ -272,10 +286,10 @@ export const Dashboard = () => {
               CCS Board Resources
             </h2>
             <section className="grid flex-1 grid-rows-[3fr_1fr_1fr] gap-3">
-              <div className="group border border-[#dfc286] bg-[#fff8ea] p-6">
-                <h2 className="nice-font text-xl !font-semibold text-[#84211b]">Links, Drives, More</h2>
+              <div className="group border border-[#dfc286] bg-[#fff8ea] p-6 rounded-lg">
+                <h2 className="nice-font text-xl !font-semibold text-[#84211b]">Links and Drives</h2>
                 <div className='mt-5 grid gap-4 sm:grid-cols-3'>
-                  {resourceLinks.map((source) => (<ResourceCards key={source.title} link={source.url} resourceName={source.title}/>))}
+                  {resourceLinks.map((source) => (<ResourceCards key={source.title} link={source.url} resourceName={source.title} icon={source.icon}/>))}
                 </div>
               </div>
               <div className="group border border-[#dfc286] bg-[#fff8ea] p-6">
@@ -283,7 +297,7 @@ export const Dashboard = () => {
                 <button
                   type="button"
                   onClick={() => setUploadOpen(true)}
-                  className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16]"
+                  className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg"
                 >
                   Upload
                 </button>
@@ -298,7 +312,7 @@ export const Dashboard = () => {
                       sx={{
                         backgroundColor: '#84211b',
                         border: '1px solid #84211b',
-                        borderRadius: 0,
+                        borderRadius: 2,
                         boxShadow: 'none',
                         color: '#fff8ea',
                         fontFamily: 'Roboto, sans-serif',
@@ -333,7 +347,7 @@ export const Dashboard = () => {
               sx: {
                 backgroundColor: '#fff8ea',
                 border: '1px solid #dfc286',
-                borderRadius: 0,
+                borderRadius: 2,
                 boxShadow: '0 18px 45px rgba(63,30,20,0.22)',
               },
             },
@@ -371,7 +385,7 @@ export const Dashboard = () => {
               sx: {
                 backgroundColor: '#fff8ea',
                 border: '1px solid #dfc286',
-                borderRadius: 0,
+                borderRadius: 2,
                 boxShadow: '0 18px 45px rgba(63,30,20,0.22)',
               },
             },
@@ -420,7 +434,7 @@ export const Dashboard = () => {
               onClick={() => setAdminListOpen(false)}
               sx={{
                 border: '1px solid #dfc286',
-                borderRadius: 0,
+                borderRadius: 2,
                 color: '#331a11',
                 fontFamily: 'Roboto, sans-serif',
                 padding: '8px 18px',
