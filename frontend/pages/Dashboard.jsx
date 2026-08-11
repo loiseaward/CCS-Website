@@ -363,7 +363,7 @@ export const Dashboard = () => {
                         fontWeight: 500,
                         padding: '10px 20px',
                         textTransform: 'none',
-                        transition: 'all 300ms cubic-beizer(0, 0, 0.2, 1)',
+                        transition: 'all 300ms cubic-bezier(0, 0, 0.2, 1)',
                         boxShadow: 'none',
                         '&:hover': {
                           backgroundColor: '#6f1b16',
