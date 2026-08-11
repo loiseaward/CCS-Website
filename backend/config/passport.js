@@ -36,18 +36,22 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => { //only store id to save memory
+  console.log('Serialising user:', user)
   done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => { //find people when logging back in
+  console.log('Deserialising id:', id);
   try {
     const result = await sql`
       SELECT *
       FROM board_members
       WHERE id = ${id}
     `;
+    console.log('Deserialising result:', result);
     done(null, result[0] || null);
   } catch (err) {
+    console.log('Deserialising error:', err);
     done(err, null);
   }
 });
