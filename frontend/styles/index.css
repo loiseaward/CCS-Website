@@ -551,6 +551,13 @@ Retrieved 2026-07-08, License - CC BY-SA 4.0
   width: 100%;
   aspect-ratio: 4 / 4.5;
   object-fit: cover;
+  transition-property: transform;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-beizer(0, 0, 0.2, 1);
+}
+
+.group:hover .ccs-merch-image {
+  transform: scale(1.1);
 }
 
 .ccs-merch-note {

@@ -95,9 +95,9 @@ export const Join = () => {
         <section className="bg-[#f2e8d5] h-auto px-6 py-10">
           <div className='max-w-[1440px] mx-auto p-4'>
             
-            <div className="ccs-merch-card">
+            <div className="ccs-merch-card group">
               <div className="ccs-merch-visual">
-                <div className="ccs-merch-image-wrap">
+                <div className="ccs-merch-image-wrap ">
                   <img
                     src={merchPic}
                     alt="cutie patooties wearing our merch"

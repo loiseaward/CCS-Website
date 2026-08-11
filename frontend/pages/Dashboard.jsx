@@ -140,9 +140,13 @@ function PdfUploader({ onUploaded }) {
           startIcon={<CloudUploadIcon />}
           sx={{ 
           backgroundColor: '#84211b', // Your custom hex color
-          borderRadius: 2,
+          borderRadius: '8px',
+          boxShadow: 'none',
+          transition: 'all 300ms cubic-bezier(0, 0, 0.2, 1)',
           '&:hover': {
             backgroundColor: '#722622', // Darker shade for the hover effect
+            transform: 'translateY(-8px)',
+            boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
           },
         }}
         >
@@ -168,9 +172,17 @@ function PdfUploader({ onUploaded }) {
           disabled={!formData.pdfFile || !formData.file_name || !formData.uploaded_at}
           sx={{ 
           backgroundColor: '#9f1d16', // Your custom hex color
-          borderRadius: 2,
-          '&:hover': {
-            backgroundColor: '#9f1d16', // Darker shade for the hover effect
+          borderRadius: '8px',
+          boxShadow: 'none',
+          transition: 'all 300ms cubic-bezier(0, 0, 0.2, 1)',
+          '&:disabled': {
+            transform: 'none',
+            boxShadow: 'none',
+          },
+          '&:not(:disabled):hover': { // Target hover only when the button is active
+            backgroundColor: '#9f1d16', 
+            transform: 'translateY(-8px)', // Tailwind: hover:-translate-y-2
+            boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
           },
         }}
         >
@@ -307,7 +319,7 @@ export const Dashboard = () => {
               <button
                 type="button"
                 onClick={logoutAdmin}
-                className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg"
+                className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]"
               >
                 Log out
               </button>
@@ -328,7 +340,7 @@ export const Dashboard = () => {
                 <button
                   type="button"
                   onClick={() => setUploadOpen(true)}
-                  className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg"
+                  className="simple-font mt-10 w-fit border border-[#84211b] bg-[#84211b] px-5 py-2.5 text-sm font-medium text-white transition hover:bg-[#6f1b16] rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]"
                 >
                   Upload
                 </button>
@@ -351,9 +363,13 @@ export const Dashboard = () => {
                         fontWeight: 500,
                         padding: '10px 20px',
                         textTransform: 'none',
+                        transition: 'all 300ms cubic-beizer(0, 0, 0.2, 1)',
+                        boxShadow: 'none',
                         '&:hover': {
                           backgroundColor: '#6f1b16',
-                          boxShadow: 'none',
+                          borderColor: '#c9a227',
+                          transform: 'translateY(-8px)',
+                          boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
                         },
                       }}
                     >
@@ -470,9 +486,13 @@ export const Dashboard = () => {
                 fontFamily: 'Roboto, sans-serif',
                 padding: '8px 18px',
                 textTransform: 'none',
+                boxShadow: 'none',
+                transition: 'all 300ms cubic-bezier(0, 0, 0.2, 1)', 
                 '&:hover': {
                   backgroundColor: '#f2e8d5',
                   borderColor: '#cd9b55',
+                  transform: 'translateY(-8px)',
+                  boxShadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
                 },
               }}
             >
