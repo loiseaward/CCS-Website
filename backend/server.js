@@ -150,6 +150,12 @@ app.get('/api/admins', async (req, res) => {
 });
 
 app.get('/api/me', (req, res) => {
+  console.log('origin:', req.headers.origin);
+  console.log('cookie:', req.headers.cookie);
+  console.log('sessionID:', req.sessionID);
+  console.log('session:', req.session);
+  console.log('isAuthenticated:', req.isAuthenticated());
+
   if (req.isAuthenticated()) {
     res.json({ //send information to frontend saved in session
       isAdmin: req.user.role === 'admin',
