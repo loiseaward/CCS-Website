@@ -1,7 +1,8 @@
 import React from 'react';
 import '../styles/index.css';
 import { Header } from "../components/Header.jsx"
-import placeholderimg from "../assets/CCSpng.png"
+import instagram_1 from "../assets/instagram_1.jpeg"
+import instagram_2 from "../assets/instagram_2.jpeg"
 import merchPic from "../assets/merchModels.jpg"
 
 function handleSubscribe (e){
@@ -31,15 +32,15 @@ export const Join = () => {
                 <p class="text-[#554433] text-base mb-6 leading-relaxed">
                   Stay connected with event updates, photos, and cultural content.
                 </p>
-                <a href="https://www.instagram.com/ccsofnd/" class="block simple-font !text-center !text-white text-sm !font-bold tracking-wider py-3.5 mb-6 bg-gradient-to-r from-[#7000ff] to-[#d10080] rounded-lg">
+                <a href="https://www.instagram.com/ccsofnd/" className="block simple-font !text-center !text-white text-sm !font-bold tracking-wider py-3.5 mb-6 bg-gradient-to-r from-[#7000ff] to-[#d10080] rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
                   @CCSOFND
                 </a>
                 <div class="grid grid-cols-2 gap-4">
-                  <div class="overflow-hidden">
-                    <img src={placeholderimg} alt="Chinese Lanterns" class="w-full h-20 sm:h-30 md:h-40 object-cover"/>
+                  <div class="overflow-hidden group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <img src={instagram_1} alt="Chinese Lanterns" className="w-full h-20 sm:h-30 md:h-40 object-cover transition-transform duration-300 ease-out group-hover:scale-110"/>
                   </div>
-                  <div class="overflow-hidden">
-                    <img src={placeholderimg} alt="Chinese Deity Lantern" class="w-full h-20 sm:h-30 md:h-40 object-cover"/>
+                  <div class="overflow-hidden group relative overflow-hidden rounded-lg shadow-md transition-all duration-300 hover:shadow-xl">
+                    <img src={instagram_2} alt="Chinese Deity Lantern" class="w-full h-20 sm:h-30 md:h-40 object-cover transition-transform duration-300 ease-out group-hover:scale-110"/>
                   </div>
                 </div>
             </div>
@@ -50,7 +51,7 @@ export const Join = () => {
                 <p class="text-[#554433] text-base mb-6 leading-relaxed">
                   Get real-time updates, chat with members, and stay informed
                 </p>
-                <a href="https://www.instagram.com/ccsofnd/" class="block simple-font !text-center !text-white text-sm !font-normal tracking-wider py-3.5 mb-6 bg-[#9a2d24] rounded-lg">
+                <a href="https://www.instagram.com/ccsofnd/" class="block simple-font !text-center !text-white text-sm !font-normal tracking-wider py-3.5 mb-6 bg-[#9a2d24] rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
                   JOIN GROUPME CHAT (link needs to be fixed)
                 </a>
                 <div className="bg-[#f2e8d5] border-1 border-[#dcb377cf]">
@@ -83,7 +84,7 @@ export const Join = () => {
                           <li> ...and more!</li>
                         </ul>
                   </div>
-                   <a href="https://www.instagram.com/ccsofnd/" class="w-1/2 block simple-font !text-center !text-white text-sm !font-normal tracking-wider py-3.5 mb-6 bg-[#9a2d24] rounded-lg">
+                   <a href="https://www.instagram.com/ccsofnd/" class="w-1/2 block simple-font !text-center !text-white text-sm !font-normal tracking-wider py-3.5 mb-6 bg-[#9a2d24] rounded-lg transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-xl hover:border-[#c9a227]">
                       PAY DUES (link needs to be fixed)
                     </a>
               </div>
