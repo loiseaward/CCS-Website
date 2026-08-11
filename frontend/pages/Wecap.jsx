@@ -100,6 +100,8 @@ const PdfPreview = ({ fileUrl, fileName }) => {
   );
 };
 
+const formatWecapDate = (date) => new Date(`${date}T00:00:00`).toLocaleDateString();
+
 
 const WecapViewer = () => {
   const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -161,7 +163,7 @@ const WecapViewer = () => {
       {latestDoc && (
         <div style={{ marginBottom: '40px' }}>
           <div className="mb-8">
-          <h1 className="text-4xl nice-font !font-bold mb-8 text-center">Latest Wecap: {new Date(latestDoc.uploaded_at).toLocaleDateString()}</h1>
+          <h1 className="text-4xl nice-font !font-bold mb-8 text-center">Latest Wecap: {formatWecapDate(latestDoc.uploaded_at)}</h1>
           <hr className="gradient-line" />
           </div>
           

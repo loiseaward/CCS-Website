@@ -3,7 +3,7 @@ import '../styles/index.css';
 import { Header } from "../components/Header.jsx";
 
 export const WecapCards = (props) =>{
-  const issueDate = new Date(props.uploaded_at);
+  const issueDate = new Date(`${props.uploaded_at}T00:00:00`);
       return (
             <a
               key={props.id}
