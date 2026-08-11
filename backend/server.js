@@ -32,7 +32,7 @@ const GCAL_API_KEY = process.env.GCAL_API_KEY;
 const GCAL_ID = process.env.GCAL_ID;
 
 //middleware here
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(
@@ -54,6 +54,10 @@ app.use('/auth', authRoutes);
 
 //routes here
 app.post('/api/add-admin', async (req, res) => {
+  if (!req.isAuthenticated() || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admins only' });
+  }
+
   const email = req.body.email?.trim().toLowerCase();
   const name = req.body.name?.trim();
 
@@ -86,6 +90,10 @@ app.post('/api/add-admin', async (req, res) => {
 });
 
 app.post('/api/delete-admin', async (req, res) => {
+  if (!req.isAuthenticated() || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admins only' });
+  }
+
   const email = req.body.email?.trim().toLowerCase();
 
   if (!email) {
@@ -180,12 +188,100 @@ app.get('/api/calendar-events', async (req, res) => {
 });
 
 app.get('/api/wecaps-main', async (req, res) => {
-  //send most recent 3
+  try {
+    const recent_wecaps = await sql`
+      SELECT id, uploaded_at, file_name
+      FROM wecaps 
+      ORDER BY uploaded_at DESC 
+      LIMIT 4;
+    `;
+
+    return res.json({ recent_wecaps });
+  } catch (err) {
+    console.error('Failed to load recent wecaps:', err);
+    return res.status(500).json({ error: 'Failed to load recent wecaps' });
+  }
+
+});
+
+app.post('/api/upload-wecap', async (req, res) => {
+  if (!req.isAuthenticated() || req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Admins only' });
+  }
+
+  const { date, fileName, pdfData } = req.body;
+
+  if (!date || !fileName || !pdfData) {
+    return res.status(400).json({ error: 'Date, file name, and PDF data are required' });
+  }
+
+  const pdfBuffer = Buffer.from(pdfData, 'base64');
+
+  if (pdfBuffer.length === 0 || pdfBuffer.length > 3 * 1024 * 1024) {
+    return res.status(400).json({ error: 'PDF must be under 3MB' });
+  }
+
+  try {
+    await sql`
+      INSERT INTO wecaps (uploaded_at, file_name, pdf_data)
+      VALUES (${date}, ${fileName}, ${pdfBuffer})
+    `;
+
+    return res.status(201).json({ message: 'Wecap uploaded successfully' });
+  } catch (err) {
+    console.error('Failed to upload wecap:', err);
+    return res.status(500).json({ error: 'Failed to upload wecap' });
+  }
 });
 
 app.post('/api/wecaps-archive', async (req, res) => {
   //send all or filtered by years
-  const years = req.body.years || [];
+  const years = (req.body.years || []).map(Number).filter(Number.isInteger);
+  try {
+    const recent_wecaps = years.length > 0
+      ? await sql`
+          SELECT id, uploaded_at, file_name
+          FROM wecaps
+          WHERE EXTRACT(YEAR FROM uploaded_at)::int = ANY(${years})
+          ORDER BY uploaded_at DESC
+        `
+      : await sql`
+          SELECT id, uploaded_at, file_name
+          FROM wecaps
+          ORDER BY uploaded_at DESC
+        `;
+
+    return res.json({ recent_wecaps });
+  } catch (err) {
+    console.error('Failed to load recent wecaps:', err);
+    return res.status(500).json({ error: 'Failed to load recent wecaps' });
+  }
+});
+
+app.get('/api/get-pdf/:id', async (req, res) => { //specific wecap
+  const { id } = req.params;
+
+  try {
+    const result = await sql`
+      SELECT pdf_data, file_name
+      FROM wecaps
+      WHERE id = ${id}
+    `;
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+
+    const pdfData = Buffer.from(result[0].pdf_data);
+    const fileName = result[0].file_name;
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+    res.send(pdfData);
+  } catch (err) {
+    console.error('Failed to retrieve PDF:', err);
+    return res.status(500).json({ error: 'Failed to retrieve PDF' });
+  }
 });
 
 //listening

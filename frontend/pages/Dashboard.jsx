@@ -38,27 +38,55 @@ function PdfUploader({ onUploaded }) {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    if (file && file.type === 'application/pdf') {
+    if (file && file.type === 'application/pdf' && file.size <= 3 * 1024 * 1024) { // 3MB limit
       setFormData((prev) => ({ ...prev, pdfFile: file }));
     } else {
-      alert('Please upload a PDF file');
+      alert('Please upload a PDF file under 3MB');
     }
   };
 
-  const handleSubmit = () => {
-    // apppend to formData and send formData to a backend here
-    const dataForm = new FormData();
-    dataForm.append('name', formData.file_name);
-    dataForm.append('pdf', formData.pdfFile);
-
-    // Convert back into date string format "YYYY-MM-DD"
-    if (formData.uploaded_at && formData.uploaded_at.isValid()) {
-      dataForm.append('date', formData.uploaded_at.format('YYYY-MM-DD'));
+  const handleSubmit = async () => {
+    if (!formData.uploaded_at?.isValid()) {
+      alert('Please select a valid date');
+      return;
     }
 
-    console.log('Submitting obj FormData:', formData);
-    console.log(Object.fromEntries(dataForm.entries()));
-    onUploaded?.();
+    const pdfData = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(formData.pdfFile);
+    });
+
+    const payload = {
+      fileName: formData.file_name,
+      date: formData.uploaded_at.format('YYYY-MM-DD'),
+      pdfData,
+    };
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/api/upload-wecap`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        alert(`Error: ${data.error || 'Failed to upload wecap'}`);
+        return;
+      }
+
+      onUploaded?.();
+    } catch (error) {
+      console.error('Error uploading wecap:', error);
+      alert('An error occurred while uploading the wecap.');
+      onUploaded?.();
+    }
   };
 
   return (
@@ -73,6 +101,9 @@ function PdfUploader({ onUploaded }) {
         backgroundColor: '#fff8ea', }}>
         <Typography variant="h5" component="h1" gutterBottom>
           Upload Wecap Details
+        </Typography>
+        <Typography variant="h10" component="h5" gutterBottom>
+          File must be a pdf. Limit to file sizes of 3MB
         </Typography>
 
         {/* File Name Input */}
